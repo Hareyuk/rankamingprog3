@@ -1,0 +1,28 @@
+header
+{
+    width: 161px;
+    height: 100%;
+}
+
+.lineGlow
+{
+    width: 10px;
+    height: 100%;
+    animation-name: lineGlow;
+    animation-iteration-count: infinite;
+    animation-duration: 4s;
+    background: repeating-linear-gradient(245deg, #6AD7DE, transparent, #6AD7DE 100%);
+    animation-timing-function: linear;
+}
+
+@keyframes lineGlow
+{
+    0%
+    {
+        background-position-y: 0vh;
+    }
+    100%
+    {
+        background-position-y: 100vh;
+    }
+}

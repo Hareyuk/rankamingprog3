@@ -1,0 +1,119 @@
+.background
+{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: -3;
+    background: radial-gradient(#260094,#0F0714);
+    transform-origin: top;
+    background-position-y: -100vh;
+    background-size: 150% 200%;
+    background-position-x: -25vw;
+}
+
+.background div
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.circle
+{
+    mix-blend-mode: color-dodge;
+    background: linear-gradient(#219DE2, #D224CB);
+    position: relative;
+    border-radius: 100%;
+    opacity: 0.7;
+}
+
+.mov1, .mov2, .mov3
+{
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.mov1
+{
+  animation-name: anim1;
+  animation-duration: 2.5s;
+}
+
+.mov2
+{
+  animation-name: anim1;
+  animation-duration: 2s;
+  animation-direction: reverse;
+}
+
+
+.mov3
+{
+  animation-name: anim2;
+  animation-duration: 1s;
+}
+
+.mov4
+{
+  animation-name: anim2;
+  animation-duration: 2s;
+  animation-direction: reverse;
+}
+
+@keyframes anim1
+{
+    0%
+    {
+        padding: 0 0 0 0;
+    }
+
+    25%
+    {
+        padding: 0 5px 2px 0px;
+    }
+
+    50%
+    {
+        padding: 2px 1px 0 0px;
+    }
+
+    75%
+    {
+        padding: 0px 0px 2px 3px;
+    }
+
+    100%
+    {
+        padding: 0 0 0 0;
+    }
+}
+
+@keyframes anim1
+{
+    0%
+    {
+        padding: 2px 0 0 4px;
+    }
+
+    25%
+    {
+        padding: 0 0px 1px 0px;
+    }
+
+    50%
+    {
+        padding: 4px 3px 0 0px;
+    }
+
+    75%
+    {
+        padding: 0px 5px 4px 0px;
+    }
+
+    100%
+    {
+        padding: 2px 0 0 4px;
+    }
+}
