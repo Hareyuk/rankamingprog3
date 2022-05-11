@@ -1,0 +1,82 @@
+h1 img
+{
+    width: 40px;
+    margin-right: 3px;
+}
+.startmain
+{
+}
+h1
+{
+    color: #7af4ff;
+    font-family: Goldman;
+    font-weight: normal;
+    font-size: 50px;
+    margin: 0.2em 0;
+}
+
+h2
+{
+    color: #7af4ff;
+    font-family: Goldman;
+    font-weight: normal;
+    font-size: 30px;
+    margin: 0.4em 0;
+}
+
+.cardInfo
+{
+    width: 20%;
+    border-radius: 2em;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(315deg, rgba(0, 6, 119, 0.139), rgba(1, 7, 192,1));
+}
+
+.pdDiv
+{
+    padding: 1em;
+}
+
+.infoDiv
+{
+    z-index: 5;
+    position: relative;
+    color: rgba(106, 215, 222, 1);
+}
+
+.cardInfo h3
+{
+    margin: 0.1em 0 0.2em 0;
+}
+
+.cardInfo p
+{
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
+
+.cardInfo h4
+{
+    margin-top: 0.2em;
+    margin-bottom: 0.1em;
+}
+
+
+.divImg
+{
+    width: 100%;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.5em;
+}
+
+.divImg img
+{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+}

@@ -7,15 +7,25 @@
   z-index: 1;
 }
 
-.content
+.divDesign
 {
-  width: calc(100% - 161px);
+  width: calc(100% - 110px);
   height:100%;
   background: radial-gradient(#00D1FF,rgba(0,149,182,70));
   mix-blend-mode: multiply;
   opacity: 0.5;
   right: 0;
   position: absolute;
+  z-index: 5;
+}
+
+main
+{
+  right: 0;
+  position: absolute;
+  width: calc(100% - 161px);
+  height:100%;
+  z-index: 6;
 }
 
 @media screen and (max-width: 1700px)
@@ -25,3 +35,15 @@
       width: 90%;
     }
 }
+
+@font-face {
+  font-family: "Goldman";
+  src: url("/public/fonts/Goldman-Regular.ttf") format("truetype");;
+  font-weight: normal;
+  }
+
+  @font-face {
+    font-family: "Goldman";
+    src: url("/public/fonts/Goldman-Bold.ttf") format("truetype");;
+    font-weight: bold;
+    }

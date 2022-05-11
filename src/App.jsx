@@ -23,9 +23,11 @@ function App() {
     <Fragment>
       <BackgroundD></BackgroundD>
         <div className='organize'>
-            <BrowserRouter>
+          <BrowserRouter>
           <Header></Header>
-          <div className='content'>
+          <div className='divDesign'>
+            </div>
+            <main>
             <Routes>
               <Route path='/' element={<Home/>}></Route>
               <Route path='/about' element={<About/>}></Route>
@@ -37,7 +39,7 @@ function App() {
               <Route path='/profile/:id' element={<Profile/>}></Route>
               <Route path='/surprise/' element={<Surprise/>}></Route>
             </Routes>
-            </div>
+            </main>
           </BrowserRouter>
         </div>
     </Fragment>
