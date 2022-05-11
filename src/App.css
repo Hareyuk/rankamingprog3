@@ -14,4 +14,14 @@
   background: radial-gradient(#00D1FF,rgba(0,149,182,70));
   mix-blend-mode: multiply;
   opacity: 0.5;
+  right: 0;
+  position: absolute;
+}
+
+@media screen and (max-width: 1700px)
+{
+    .content
+    {
+      width: 90%;
+    }
 }

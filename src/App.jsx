@@ -15,6 +15,7 @@ import Profile from './pages/Profile/Profile';
 import BackgroundD from './components/BackgroundCanvas/BackgroundD';
 import { Fragment } from 'react';
 import Header from './components/Header/Header';
+import Surprise from './pages/Surprise/Surprise'
 import './App.css';
 
 function App() {
@@ -22,15 +23,23 @@ function App() {
     <Fragment>
       <BackgroundD></BackgroundD>
         <div className='organize'>
+            <BrowserRouter>
           <Header></Header>
           <div className='content'>
-            <BrowserRouter>
             <Routes>
               <Route path='/' element={<Home/>}></Route>
+              <Route path='/about' element={<About/>}></Route>
+              <Route path='/login' element={<Login/>}></Route>
+              <Route path='/signup' element={<SignUp/>}></Route>
+              <Route path='/game/:id' element={<Game/>}></Route>
+              <Route path='/games' element={<Games/>}></Route>
+              <Route path='/rankings' element={<Rankings/>}></Route>
+              <Route path='/profile/:id' element={<Profile/>}></Route>
+              <Route path='/surprise/' element={<Surprise/>}></Route>
             </Routes>
+            </div>
           </BrowserRouter>
         </div>
-      </div>
     </Fragment>
   );
 }

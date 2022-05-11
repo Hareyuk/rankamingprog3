@@ -1,0 +1,99 @@
+.contentBoxBtn
+{
+    width: 124px;
+    height: 124px;
+    border-radius: 100%;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 0.5em;
+}
+
+.borderGra
+{
+    width: 124px;
+    height: 124px;
+    border-radius: 100%;
+    background: linear-gradient(180deg, rgba(106, 215, 222, 100), rgba(106, 215, 222, 20%));
+    animation-name: rotating;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    mix-blend-mode:lighten;
+    opacity: 0.6;
+}
+
+.contentBox
+{
+    border: none;
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    background: linear-gradient(180deg, rgb(33, 28, 189), rgb(25, 19, 104));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.contentBox:hover
+{
+    background: linear-gradient(180deg, rgb(43, 37, 212), rgb(34, 27, 134));
+}
+
+.contentBox:active
+{
+    border: none;
+    background: linear-gradient(180deg, rgb(36, 29, 248), rgb(40, 30, 182));
+}
+
+@keyframes rotating
+{
+    0%
+    {
+        transform: rotate(0deg);
+    }
+
+    50%
+    {
+        transform: rotate(180deg);
+    }
+
+    100%
+    {
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 1600px)
+{
+    .contentBoxBtn
+    {
+        width: 90%;
+        height: 0%;
+        padding-bottom: 90%;
+    }
+
+    .borderGra
+    {
+        width: 100%;
+        height: 0%;
+        padding-bottom: 100%;
+    }
+
+    .contentBox
+    {
+        width: 95%;
+        height: 0%;
+        padding-bottom: 95%;
+    }
+}
+
+@media screen and (max-width: 1000px)
+{
+    i
+    {
+        font-size: 3em;
+    }
+}

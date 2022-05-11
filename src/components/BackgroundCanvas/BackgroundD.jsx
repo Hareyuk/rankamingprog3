@@ -23,6 +23,8 @@ const BackgroundD = () => {
     { left: "87%", top: "54%", size: "87px", class: "mov3" },
     { left: "92%", top: "5%", size: "120px", class: "mov4" },
     { left: "87%", top: "54%", size: "120px", class: "mov1" },
+    { left: "66%", top: "83%", size: "120px", class: "mov2" },
+    { left: "65.5%", top: "93%", size: "42px", class: "mov3" },
   ];
   /* useEffect(() => {
         var c = document.getElementById("myCanvas");
