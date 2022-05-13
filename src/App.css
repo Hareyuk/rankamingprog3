@@ -26,6 +26,7 @@ main
   width: calc(100% - 161px);
   height:100%;
   z-index: 6;
+  overflow-y: scroll;
 }
 
 @media screen and (max-width: 1700px)

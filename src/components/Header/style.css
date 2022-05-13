@@ -47,7 +47,7 @@ header img
         background-position-y: 100vh;
     }
 }
-
+/* 
 @media screen and (max-width: 1700px){
    header
    {
@@ -63,3 +63,4 @@ header img
        width: calc(10% - 5px);
    }
 }
+ */

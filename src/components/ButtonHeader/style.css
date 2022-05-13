@@ -78,7 +78,7 @@ i
         transform: rotate(360deg);
     }
 }
-
+/* 
 @media screen and (max-width: 1600px)
 {
     .contentBoxBtn
@@ -102,7 +102,7 @@ i
         padding-bottom: 95%;
     }
 }
-
+ */
 @media screen and (max-width: 1000px)
 {
     i
