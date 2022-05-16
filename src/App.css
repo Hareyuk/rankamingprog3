@@ -180,9 +180,30 @@ main
 
 .rankList
 {
+  scroll-behavior: smooth;
   overflow-y: scroll;
   height: 240px;
 }
+
+.rankList::-webkit-scrollbar
+{
+  width: 10px;
+}
+
+.rankList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.rankList::-webkit-scrollbar-thumb {
+  background: #77dde6;
+  border-radius: 3em;
+  
+}
+
+.rankList::-webkit-scrollbar-thumb:hover {
+  background: #60c6cf;
+}
+
 
 .userRank
 {

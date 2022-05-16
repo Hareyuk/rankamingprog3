@@ -40,13 +40,13 @@ const Home = () => {
       </div>
       </div>;
   };
-  const buildDivPlus = (link) => {
+  const buildDivPlus = (link, childText) => {
     return (
       <div key="none" className="cardInfo cardPlus">
         <Link to={link}></Link>
         <div>
           <i className="fa-solid fa-plus"></i>
-          <p>Más juegos</p>
+          <p>{childText}</p>
         </div>
       </div>
     );
@@ -239,14 +239,14 @@ const Home = () => {
           <h2>Últimos juegos</h2>
           <div className="listDesign">
             {placeHolder.map((item, i) =>
-              i < 3 ? buildDiv(item) : buildDivPlus("/games")
+              i < 3 ? buildDiv(item) : buildDivPlus("/games", "Más juegos")
             )}
           </div>
         </section>
         <section>
           <h2>Rankings</h2>
           <div className="listDesign">
-            {placeHolderUser.map((item, i) => i<3 ? buildDivRank(item) : buildDivPlus("/rankings"))}
+            {placeHolderUser.map((item, i) => i<3 ? buildDivRank(item) : buildDivPlus("/rankings", "Más rankings"))}
           </div>
         </section>
       </div>

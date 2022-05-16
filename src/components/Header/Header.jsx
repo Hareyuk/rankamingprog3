@@ -13,7 +13,7 @@ const Header = () => {
         <ButtonHeader url="/rankings" icon="fa-trophy"></ButtonHeader>
         <ButtonHeader url="/surprise" icon="fa-gift"></ButtonHeader>
         <ButtonHeader url="/about" icon="fa-exclamation"></ButtonHeader>
-        <img src="/Rlogo.svg" alt="Rankaming"/>
+        <img src="/rlogo.svg" alt="Rankaming"/>
       </div>
     </header>
   );
