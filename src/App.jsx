@@ -1,4 +1,9 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+} from "react-router-dom";
 import About from "./pages/About/About";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
@@ -29,32 +34,35 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        setUser(user.email);
-        setUid(user.uid);
+        handleChangeUser(user);
+        handleChangeUid(user.uid);
       }
     });
   }, []);
 
-  const logOut = ()=>
-    {
-        auth.signOut();
-        setUser(null);
-        setUid(null);
-    }
+  const handleChangeUid=(uid)=>
+  {
+    setUid(uid);
+  }
+
+  const handleChangeUser=(user)=>
+  {
+    setUser(user);
+  }
 
   return (
     <Fragment>
+      <BrowserRouter>
       <BackgroundD></BackgroundD>
       <div className="organize">
-        <BrowserRouter>
           <Header></Header>
           <div className="divDesign">
-            {user ? (
-              <ButtonAccess>Iniciar sesión</ButtonAccess> && (
-                <ButtonAccess>Registrarse</ButtonAccess>
-              )
+            {user !== null ? (
+              <ButtonAccess auth={auth} setUid={setUid} setUser={setUser} >Cerrar sesión</ButtonAccess>
             ) : (
-              <ButtonAccess>Cerrar sesión</ButtonAccess>
+              <ButtonAccess auth={auth} setUid={setUid} setUser={setUser} >Iniciar sesión</ButtonAccess> && (
+                <ButtonAccess auth={auth} setUid={setUid} setUser={setUser} >Registrarse</ButtonAccess>
+              )
             )}
           </div>
           <main>
@@ -70,8 +78,8 @@ function App() {
               <Route path="/surprise/" element={<Surprise />}></Route>
             </Routes>
           </main>
-        </BrowserRouter>
       </div>
+        </BrowserRouter>
     </Fragment>
   );
 }

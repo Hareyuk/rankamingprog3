@@ -29,6 +29,13 @@ main
   overflow-y: scroll;
 }
 
+.listDesign
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
 @media screen and (max-width: 1700px)
 {
     .content
@@ -48,3 +55,218 @@ main
     src: url("/public/fonts/Goldman-Bold.ttf") format("truetype");;
     font-weight: bold;
     }
+
+    /*
+    DIVS REUTILIZABLES
+    */
+
+    
+.cardInfo
+{
+    margin: 0 1em;
+    width: calc(22% - 0.3em);
+    border-radius: 2em;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(315deg, rgba(0, 6, 119, 0.139), rgba(1, 7, 192,1));
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.cardPlus
+{   
+    text-align: center;
+    position: relative;
+}
+
+.cardPlus div
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.cardPlus a
+{
+    top: 0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+}
+
+.cardRank
+{
+    height: 300px;
+}
+
+.cardRank h3
+{
+    color: #7af4ff;
+    text-align: center;
+    padding-top: 0.5em;
+}
+
+.cardPlus i
+{
+    position: initial;
+    transform: initial;
+    display: block;
+    font-size: 8em;
+}
+
+.cardPlus p
+{
+    font-size: 1.5em;
+    font-family: Goldman;
+    margin-top: 2em !important;
+    color: rgba(106, 215, 222, 1);
+}
+
+
+.cardInfo:hover
+{
+    filter: drop-shadow(0px 0px 12px rgba(0, 255, 255, 0.3));
+}
+
+.pdDiv
+{
+    padding: 1em;
+}
+
+.infoDiv
+{
+    z-index: 5;
+    position: relative;
+    color: rgba(106, 215, 222, 1);
+}
+
+.cardInfo h3, .cardRank h3
+{
+    margin: 0.1em 0 0.2em 0;
+}
+
+.cardInfo p
+{
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
+
+.cardInfo h4
+{
+    margin-top: 0.2em;
+    margin-bottom: 0.1em;
+}
+
+
+.divImg
+{
+    width: 100%;
+    min-height: 150px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.5em;
+}
+
+.divImg img
+{
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);  
+}
+
+.rankList
+{
+  overflow-y: scroll;
+  height: 240px;
+}
+
+.userRank
+{
+  width: 90%;
+  margin: 0 auto;
+  background: linear-gradient(225deg, rgba(0, 16, 255, 0.6), rgba(2, 29, 224, 0.6));
+  border-radius: 1.5em;
+  margin-bottom: 0.5em;
+  padding: 0.4em 0px;
+}
+
+.userRank h4
+{
+  font-weight: normal;
+  padding-top: 0.4em;
+  color: rgba(106, 215, 222, 1);
+}
+
+.userRank p
+{
+  font-weight: bold;
+  color: rgba(106, 215, 222, 1);
+}
+
+.boxTextsRank
+{
+  display: inline-block;
+  width: calc(90% - 70px);
+  padding-left: 1em;
+  vertical-align: top;
+}
+
+.borderPic
+{
+  margin-left: 0.5em;
+  vertical-align: top;
+  border-radius: 100%;
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  display: inline-block;
+}
+
+.borderPic div
+{
+  background: linear-gradient(180deg, rgba(106, 215, 222, 100%), rgba(106, 215, 222, 20%));
+  width: 100%;
+  height: 100%;
+  animation-name: rotatingRank;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotatingRank
+{
+    0%
+    {
+        transform: translate(-50%,-50%) rotate(0deg);
+    }
+
+    50%
+    {
+        transform: translate(-50%,-50%) rotate(180deg);
+    }
+
+    100%
+    {
+        transform: translate(-50%,-50%) rotate(360deg);
+    }
+}
+
+.borderPic img
+{
+  width: 90%;
+  height: 90%;
+}
+
+.borderPic img, .borderPic div
+{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 100%;
+}

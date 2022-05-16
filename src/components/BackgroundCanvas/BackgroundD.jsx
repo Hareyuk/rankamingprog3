@@ -42,8 +42,8 @@ const BackgroundD = () => {
 
   return (
     <div className="background">
-      {arrayCircles.map((item) => (
-        <div className={item.class}>
+      {arrayCircles.map((item, i) => (
+        <div key={"b"+i} className={item.class}>
           <div
             className="circle"
             style={{
