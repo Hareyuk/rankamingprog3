@@ -3,8 +3,8 @@ import React, { useState, useEffect, Fragment } from "react";
 import BackgroundD from "../../components/BackgroundCanvas/BackgroundD";
 import GradientBar from "../../components/GradientBar/GradientBar";
 import { Link } from "react-router-dom";
-
-const Home = () => {
+import ButtonsAccount from "../../components/ButtonsAccount/ButtonsAccount";
+const Home = (props) => {
   const buildDiv = (item) => {
     return (
       <div key={item.key} className="cardInfo">
@@ -30,15 +30,29 @@ const Home = () => {
     return texto;
   };
   const buildDivRank = (item) => {
-    return <div key={item.key} className="cardInfo cardRank"><h3>{item.nombre}</h3>
-    <div className="rankList">
-      {item.arrayPuntos.map((item, i)=>
-        {
-          return <div className="userRank"><div className="borderPic"><div></div><img src={item.picUser} alt={item.nombre}/></div><div className="boxTextsRank">
-            <h4>{(i+1)} - {item.nombre}</h4><p>{item.puntaje}</p></div></div>;
-        })}
+    return (
+      <div key={item.key} className="cardInfo cardRank">
+        <h3>{item.nombre}</h3>
+        <div className="rankList">
+          {item.arrayPuntos.map((item, i) => {
+            return (
+              <div className="userRank">
+                <div className="borderPic">
+                  <div></div>
+                  <img src={item.picUser} alt={item.nombre} />
+                </div>
+                <div className="boxTextsRank">
+                  <h4>
+                    {i + 1} - {item.nombre}
+                  </h4>
+                  <p>{item.puntaje}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-      </div>;
+    );
   };
   const buildDivPlus = (link, childText) => {
     return (
@@ -52,7 +66,7 @@ const Home = () => {
     );
   };
 
-  const placeHolder = [
+  var placeHolder = [
     {
       key: 0,
       nombre: "Rompecabezas mineras",
@@ -83,7 +97,7 @@ const Home = () => {
     },
   ];
 
-  const placeHolderUser = [
+  var placeHolderUser = [
     {
       nombre: "Juego1",
       arrayPuntos: [
@@ -115,7 +129,7 @@ const Home = () => {
           picUser: "/placeholderImgProfile.jpg",
           puntaje: 700,
         },
-      ]
+      ],
     },
     {
       nombre: "Juego2",
@@ -148,7 +162,7 @@ const Home = () => {
           picUser: "/placeholderImgProfile.jpg",
           puntaje: 9900,
         },
-      ]
+      ],
     },
     {
       nombre: "Juego3",
@@ -181,7 +195,7 @@ const Home = () => {
           picUser: "/placeholderImgProfile.jpg",
           puntaje: 1200,
         },
-      ]
+      ],
     },
     {
       nombre: "Juego4",
@@ -214,17 +228,18 @@ const Home = () => {
           picUser: "/placeholderImgProfile.jpg",
           puntaje: 1200,
         },
-      ]
+      ],
     },
   ];
 
+  const { functionStart } = props;
   useEffect(() => {
-    placeHolderUser.forEach((arrayGame) => {
-      arrayGame.arrayPuntos.sort((a, b) => {
-        return a.puntaje - b.puntaje;
-      });
+    functionStart(true);
+  }, []);
+
+  var newArray2 = placeHolderUser.forEach((arrayGame) => {
+    arrayGame.arrayPuntos.sort((a,b)=>parseFloat(b.puntaje)-parseFloat(a.puntaje));
     });
-  }, [placeHolderUser]);
 
   return (
     <Fragment>
@@ -246,7 +261,11 @@ const Home = () => {
         <section>
           <h2>Rankings</h2>
           <div className="listDesign">
-            {placeHolderUser.map((item, i) => i<3 ? buildDivRank(item) : buildDivPlus("/rankings", "Más rankings"))}
+            {placeHolderUser.map((item, i) =>
+              i < 3
+                ? buildDivRank(item)
+                : buildDivPlus("/rankings", "Más rankings")
+            )}
           </div>
         </section>
       </div>

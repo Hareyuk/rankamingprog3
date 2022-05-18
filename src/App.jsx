@@ -19,8 +19,8 @@ import Header from "./components/Header/Header";
 import "./App.css";
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "./firebaseconfig";
-import { ButtonAccess } from "./components/ButtonAccess/ButtonAccess";
 import Unity, { UnityContext } from "react-unity-webgl";
+import ButtonsAccount from "./components/ButtonsAccount/ButtonsAccount";
 const unityContext = new UnityContext({
   loaderUrl: "build/myunityapp.loader.js",
   dataUrl: "build/myunityapp.data",
@@ -37,6 +37,11 @@ function App() {
         handleChangeUser(user);
         handleChangeUid(user.uid);
       }
+      else
+      {
+        handleChangeUser(null);
+        handleChangeUid(null);
+      }
     });
   }, []);
 
@@ -50,32 +55,39 @@ function App() {
     setUser(user);
   }
 
+  const [boolShow, setBoolShow] = useState(false);
+ /* const setBoolShowTrue=()=>
+  {
+    setBoolShow(true);
+  }
+  const setBoolShowFalse=()=>
+  {
+    setBoolShow(false);
+  }*/
+  const setBoolShowValue=(value)=>
+  {
+    setBoolShow(value);
+  }
   return (
     <Fragment>
       <BrowserRouter>
       <BackgroundD></BackgroundD>
       <div className="organize">
-          <Header></Header>
+          <Header uid={uid}></Header>
           <div className="divDesign">
-            {user !== null ? (
-              <ButtonAccess auth={auth} setUid={setUid} setUser={setUser} >Cerrar sesión</ButtonAccess>
-            ) : (
-              <ButtonAccess auth={auth} setUid={setUid} setUser={setUser} >Iniciar sesión</ButtonAccess> && (
-                <ButtonAccess auth={auth} setUid={setUid} setUser={setUser} >Registrarse</ButtonAccess>
-              )
-            )}
           </div>
+          <ButtonsAccount setUid={(value)=>{handleChangeUid(value)}} setUser={(value)=>{handleChangeUser(value)}} user={user} boolShow={boolShow}/>
           <main>
             <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/about" element={<About />}></Route>
-              <Route path="/login" element={<Login />}></Route>
-              <Route path="/signup" element={<SignUp />}></Route>
-              <Route path="/game/:id" element={<Game />}></Route>
-              <Route path="/games" element={<Games />}></Route>
-              <Route path="/rankings" element={<Rankings />}></Route>
-              <Route path="/profile/:id" element={<Profile />}></Route>
-              <Route path="/surprise/" element={<Surprise />}></Route>
+              <Route  path="/" element={<Home functionStart={(value)=>{setBoolShowValue(value)}} />}></Route>
+              <Route  path="/about" element={<About functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
+              <Route  path="/login" element={<Login uid={uid} functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
+              <Route  path="/signup" element={<SignUp uid={uid} functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
+              <Route  path="/game/:id" element={<Game uid={uid} functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
+              <Route  path="/games" element={<Games functionStart={(value)=>{setBoolShowValue(value)}} />}></Route>
+              <Route  path="/rankings" element={<Rankings functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
+              <Route  path="/profile/:id" element={<Profile uid={uid} functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
+              <Route  path="/surprise/" element={<Surprise uid={uid} functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
             </Routes>
           </main>
       </div>

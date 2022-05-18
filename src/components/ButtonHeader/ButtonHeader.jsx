@@ -3,7 +3,6 @@ import React, { Fragment, useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 const ButtonHeader = (props) => {
   const {url, name, pic, icon} = props;
-  
     return(
     <div className="contentBoxBtn">
       <div className="borderGra">
