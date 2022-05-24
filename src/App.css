@@ -371,7 +371,7 @@ label
   font-size: 1.5em;
 }
 
-form input[type=email], form input[type=password]
+form input[type=email], form input[type=password], form input[type=text]
 {
   display: block;
   border: none;
@@ -428,6 +428,17 @@ form input[type=submit]
   font-family: Glory;
   font-size: 1.2em;
   width: 100%;
+  background: none;
+  border-color:rgba(106, 215, 222, 1);
+  color: rgba(106, 215, 222, 1);
+  border-style: solid;
+}
+
+form input[type=submit]:hover
+{
+  background-color: #77dde6;
+  color:rgba(0, 6, 119, 1);
+  cursor: pointer;
 }
 
 form a:visited, form a

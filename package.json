@@ -16,7 +16,7 @@
     "react-dom": "^18.1.0",
     "react-konva": "^18.1.0",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^2.1.3",
     "react-unity-webgl": "8.x",
     "web-vitals": "^2.1.4"
   },

@@ -7,22 +7,14 @@ const Profile = (props)=>
     const [editable, setEditable] = useState(false);
     const {id} = useParams();
     const {functionStart, uid} = props;
-    useEffect(()=>
-    {
-        functionStart(true);
-    })
+    
+    functionStart(true);
+
 
     const updatePageProfile=()=>
     {
         setEditable(false);
     }
-    const buildPageUserLogged=()=>
-    {
-        return(<div>
-            {editable ? <button onClick={()=>{setEditable(true)}}>Editar perfil</button> : <button onClick={()=>{updateProfile()}}>Editar perfil</button>}
-        </div>)
-    }
-
     const buildPageUserView=()=>
     {
         return(<div>
@@ -33,7 +25,7 @@ const Profile = (props)=>
     const buildPageUserEdit=()=>
     {
         return(<div>
-            {editable ? <button onClick={()=>{setEditable(true)}}>Editar perfil</button> : <button onClick={()=>{updateProfile()}}>Editar perfil</button>}
+            editable ? <button onClick={()=>{updatePageProfile()}}>Editar perfil</button>
         </div>)
     }
     return(

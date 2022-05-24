@@ -17,18 +17,17 @@ import BackgroundD from "./components/BackgroundCanvas/BackgroundD";
 import { Fragment, useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import "./App.css";
+import { AlertContext} from "./components/MsgAlert/AlertContext";
+import statusTogglerAlert from "./components/MsgAlert/AlertContextToggle";
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "./firebaseconfig";
 import Unity, { UnityContext } from "react-unity-webgl";
 import ButtonsAccount from "./components/ButtonsAccount/ButtonsAccount";
-const unityContext = new UnityContext({
-  loaderUrl: "build/myunityapp.loader.js",
-  dataUrl: "build/myunityapp.data",
-  frameworkUrl: "build/myunityapp.framework.js",
-  codeUrl: "build/myunityapp.wasm",
-});
+//Context
 
 function App() {
+  //Context
+  //Seguir leyendo desde https://reactjs.org/docs/context.html#reactcreatecontext en app.js
   const [uid, setUid] = useState(null);
   const [user, setUser] = useState(null);
   useEffect(() => {
