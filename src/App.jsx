@@ -14,7 +14,7 @@ import Rankings from "./pages/Rankings/Rankings";
 import Profile from "./pages/Profile/Profile";
 import Surprise from "./pages/Surprise/Surprise";
 import BackgroundD from "./components/BackgroundCanvas/BackgroundD";
-import { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import "./App.css";
 import { AlertContext} from "./components/MsgAlert/AlertContext";

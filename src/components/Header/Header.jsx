@@ -1,13 +1,22 @@
 import "./style.css";
 import React, { Fragment, useEffect, useState } from "react";
 import ButtonHeader from "../ButtonHeader/ButtonHeader";
+
 const Header = (props) => {
   const {uid} = props;
   const [urlProfile, setUrlProfile] = useState("");
   useEffect(()=>
   {
-    if(uid) setUrlProfile("/profile/"+uid);
-    else setUrlProfile("/login");
+    const initialFunction = async()=>
+    {
+      if(uid)
+      {
+        setUrlProfile("/profile/"+uid);
+      }
+      else 
+        setUrlProfile("/login");
+    }
+    initialFunction();
   }, [uid])
   return (
     <header className="header">

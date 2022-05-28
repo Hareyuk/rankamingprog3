@@ -1,4 +1,5 @@
 import { AlertContext } from "./AlertContext";
+import React from 'react';
 function statusTogglerAlert() {
   return(
   <AlertContext.Consumer>

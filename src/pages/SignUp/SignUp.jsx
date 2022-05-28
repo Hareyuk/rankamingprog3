@@ -20,7 +20,7 @@ const SignUp = (props) => {
     if (uid) {
       navigate("/");
     }
-  });
+  }, []);
 
   const storage = getStorage();
   useEffect(() => {
@@ -34,13 +34,11 @@ const SignUp = (props) => {
       );
 
       //Set data for new user
-      const actualUser = await auth.currentUser;
-      const uid = await actualUser.getUid();
-      const docRef = await addDoc(collection(db, "users"), {
+      const docRef = await setDoc(doc(db, "users", uid), {
         nick: userNick,
         phrase: "¡Demuestra al mundo el poder del rankeo!",
         pfpUrl: urlPfp,
-        uidUser: uid
+        insignias: {}
       });
       setUpdateData(false);
       navigate("/login");
