@@ -5,10 +5,10 @@ import { useParams } from 'react-router-dom';
 
 const Game = (props)=>
 {
-    const {functionStart,auth} = props;
+    const {functionStart,uid} = props;
     useEffect(()=>
     {
-        if(auth)
+        if(uid)
         {
             functionStart(false);
         }
@@ -40,7 +40,7 @@ const Game = (props)=>
     return(
     <Fragment>
         <h1>Nombre del juego</h1>
-        {auth ? <Unity unityContext={unityContext}/> : <h2 className='warningNotLogged'>Lo sentimos, para acceder al juego debe iniciar sesión.</h2> }
+        {uid ? <Unity unityContext={unityContext}/> : <h2 className='warningNotLogged'>Lo sentimos, para acceder al juego debe iniciar sesión.</h2> }
     </Fragment>);
 }
 export default Game;
