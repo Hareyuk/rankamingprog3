@@ -28,7 +28,7 @@ const Header = (props) => {
         <ButtonHeader url="/rankings" icon="fa-trophy"></ButtonHeader>
         {uid ? <ButtonHeader url="/surprise" icon="fa-gift"></ButtonHeader> : ""}
         <ButtonHeader url="/about" icon="fa-exclamation"></ButtonHeader>
-        <img src="/rlogo.svg" alt="Rankaming"/>
+        <img src="/img/rlogo.svg" alt="Rankaming"/>
       </div>
     </header>
   );
