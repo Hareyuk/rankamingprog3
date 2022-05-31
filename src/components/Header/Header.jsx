@@ -18,10 +18,12 @@ const Header = (props) => {
     }
     initialFunction();
   }, [uid])
+
+
   return (
     <header className="header">
       <div className="lineGlow"></div>
-      <div className="header-menu">
+      <div className="header-menu menu-web">
         <ButtonHeader url={urlProfile} icon="fa-user"></ButtonHeader>
         <ButtonHeader url="/" icon="fa-house"></ButtonHeader>
         <ButtonHeader url="/games" icon="fa-gamepad"></ButtonHeader>
@@ -29,6 +31,14 @@ const Header = (props) => {
         {uid ? <ButtonHeader url="/surprise" icon="fa-gift"></ButtonHeader> : ""}
         <ButtonHeader url="/about" icon="fa-exclamation"></ButtonHeader>
         <img src="/img/rlogo.svg" alt="Rankaming"/>
+      </div>
+      <div className="header-menu menu-mobile">
+        <ButtonHeader url={urlProfile} icon="fa-user"></ButtonHeader>
+        <ButtonHeader url="/" icon="fa-house"></ButtonHeader>
+        <ButtonHeader url="/games" icon="fa-gamepad"></ButtonHeader>
+        <ButtonHeader url="/rankings" icon="fa-trophy"></ButtonHeader>
+        {uid ? <ButtonHeader url="/surprise" icon="fa-gift"></ButtonHeader> : ""}
+        <ButtonHeader url="/about" icon="fa-exclamation"></ButtonHeader>
       </div>
     </header>
   );

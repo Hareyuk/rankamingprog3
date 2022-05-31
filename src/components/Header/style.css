@@ -37,6 +37,11 @@ header img
     height:100%;
 }
 
+.menu-mobile
+{
+    display: none;
+}
+
 @keyframes lineGlow
 {
     0%
@@ -48,20 +53,134 @@ header img
         background-position-y: 100vh;
     }
 }
-/* 
-@media screen and (max-width: 1700px){
-   header
-   {
-       width: 10%;
-   }
-   .lineGlow
-   {
-       width: 5px;
-   }
 
-   .header-menu
+@keyframes lineGlowHor
+{
+    0%
+    {
+        background-position-x: 0vw;
+    }
+    100%
+    {
+        background-position-x: 100vw;
+    }
+}
+
+@media screen and (max-width: 1200px){
+   header img
    {
-       width: calc(10% - 5px);
+       width: 40%;
    }
 }
- */
+@media screen and (max-height: 580px){
+    header img
+    {
+        display: none;
+    }
+ }
+ 
+ @media screen and (orientation: portrait) and (max-width: 1200px){
+   header img
+   {
+       width: 40%;
+   }
+}
+ 
+@media screen and (orientation: landscape) and (max-height: 450px)
+{
+    header
+    {
+        width: 90px;
+    }
+    .lineGlow
+    {
+        width: 5px;
+    }
+
+    .header-menu
+    {
+        width: calc(80px - 10px);
+    }
+
+    .contentBoxBtn, .borderGra
+    {
+        width: 55px !important;
+        height: 55px !important;
+    }
+    
+    .contentBox
+    {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    i
+    {
+        font-size: 1.8em !important;
+    }
+ }
+
+ @media screen and (orientation: portrait) and (max-width: 450px)
+{
+    .menu-mobile
+    {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .header-menu
+    {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+    }
+
+    .lineGlow
+    {
+        animation-name: lineGlowHor;
+        width: 100%;
+        animation-duration: 4s;
+        height: 4px;
+        position: absolute;
+        bottom: 0px;
+    }
+
+    .contentBoxBtn, .borderGra
+    {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .contentBoxBtn
+    {
+        display: inline-block;
+        margin: 0.5em 0 0 0 !important;
+    }
+    
+    .contentBox
+    {
+        width: 55px !important;
+        height: 55px !important;
+    }
+
+    i
+    {
+        font-size: 1.8em !important;
+    }
+    header
+    {
+        width: 100%;
+        height: 80px;
+        max-width: 100%;
+        position: relative;
+    }
+
+    .menu-web
+    {
+        display: none;
+    }
+}

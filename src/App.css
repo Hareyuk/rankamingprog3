@@ -26,7 +26,7 @@ main
   width: calc(100% - 161px);
   height:100%;
   z-index: 6;
-  overflow-y: hidden;
+  overflow-y: scroll;
 }
 
 .listDesign
@@ -36,13 +36,6 @@ main
     justify-content: flex-start;
 }
 
-@media screen and (max-width: 1700px)
-{
-    .content
-    {
-      width: 90%;
-    }
-}
 @import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
 
@@ -237,7 +230,8 @@ font-style: normal;
 .divImg img
 {
     position: absolute;
-    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);  
@@ -446,4 +440,64 @@ form input[type=submit]:hover
 form a:visited, form a
 {
   color: #00D1FF;
+}
+
+/*Media*/
+@media screen and (max-width: 1200px)
+{
+    .cardInfo
+    {
+      margin: 0 1em 0 0 !important;
+      width: calc(24% - 0.5em) !important;
+    }
+
+    .divButtons
+    {
+      width: 180px;
+      position: absolute;
+    }
+
+    .divButtons button
+    {
+      font-size: 1.4em
+    }
+}
+
+@media screen and (orientation: landscape) and (max-height: 450px)
+{
+  h1
+  {
+    text-align: left;
+    margin-bottom: 0.2em;
+  }
+
+  .divDesign
+  {
+      width: calc(100% - 80px);
+  }
+
+  main
+  {
+    width: calc(100% - 100px);
+  }
+
+  .cardInfo:nth-child(3)
+  {
+    display: none;
+  }
+
+  .cardInfo
+  {
+      width: calc(32% - 0.5em) !important
+  }
+}
+
+@media screen and (orientation: portrait) and (max-width: 450px)
+{
+  .divDesign, main
+  {
+    width: 100%;
+    height: calc(100% - 80px);
+    bottom: 0;
+  }
 }
