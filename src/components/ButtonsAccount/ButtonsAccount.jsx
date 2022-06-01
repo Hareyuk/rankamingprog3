@@ -1,33 +1,50 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ButtonAccess } from "../ButtonAccess/ButtonAccess";
-import { auth } from "../../firebaseconfig";
+import { auth, db } from "../../firebaseconfig";
+import { doc, getDoc } from "firebase/firestore";
 const ButtonsAccount = (props) => {
-  const { setUid, setUser, user, boolShow } = props;
+  const {uid, boolShow, setUid} = props;
   const navigate = useNavigate();
   const logOut = () => {
     auth.signOut();
     setUid(null);
-    setUser(null);
     navigate("/");
   };
+
+  const [pfpUrl, setPfpUrl] = useState("");
+  const [nick, setNick] = useState("");
+
+  useEffect(() => {
+    const getData = async ()=>
+    {
+      const docRef = await doc(db, "users", uid);
+      const docSnap = await getDoc(docRef);
+      const {nick, pfpUrl} = docSnap.data();
+      setPfpUrl(pfpUrl);
+      setNick(nick);
+    }
+    if(uid) 
+    getData();
+  });
+  
   return (
     <div className="divButtons">
       {boolShow ? (
-        user != null ? (
+        uid != null ? (
             <Fragment>
+              <div className="userInfo">
+                <img src={pfpUrl} alt={"Foto de " + nick}/>
+                <p>{nick}!</p>
+              </div>
               <ButtonAccess
                 functionToCall={logOut}
                 url="/"
                 auth={auth}
                 setUid={setUid}
-                setUser={setUser}
               >
                 Cerrar sesión
               </ButtonAccess>
-              <div>
-                <img src="" alt=""/>
-              </div>
             </Fragment>
         ) : (
           <Fragment>
@@ -35,7 +52,6 @@ const ButtonsAccount = (props) => {
               url="/login"
               auth={auth}
               setUid={setUid}
-              setUser={setUser}
             >
               Iniciar sesión
             </ButtonAccess>
@@ -43,7 +59,6 @@ const ButtonsAccount = (props) => {
               url="/signup"
               auth={auth}
               setUid={setUid}
-              setUser={setUser}
             >
               Registrarse
             </ButtonAccess>

@@ -77,6 +77,28 @@ font-style: normal;
   width: 250px;
 }
 
+.userInfo
+{
+  margin-top: 0.5em;
+  text-align: center;
+}
+
+.userInfo img
+{
+  width: 46px;
+  border-radius: 100%;
+  vertical-align: middle;
+  border: #00D1FF 2px solid;
+}
+
+.userInfo p
+{
+  display: inline;
+  margin-left: 0.8em;
+  font-family: Goldman;
+  font-size: 1.3em;
+}
+
 .mt-3
 {
   margin-top: 3em;
@@ -550,5 +572,15 @@ form a:visited, form a
   .cardPlus p
   {
     margin-top: 0.5em !important;
+  }
+
+  .userInfo
+  {
+    text-align: left;
+  }
+  .userInfo p
+  {
+    font-size: 0.9em;
+    margin-left: 0.5em;
   }
 }

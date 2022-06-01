@@ -76,7 +76,7 @@ function App() {
           <div className="divDesign">
           </div>
           <main>
-          <ButtonsAccount setUid={(value)=>{handleChangeUid(value)}} setUser={(value)=>{handleChangeUser(value)}} user={user} boolShow={boolShow}/>
+          <ButtonsAccount setUid={(value)=>{handleChangeUid(value)}} uid={uid} boolShow={boolShow}/>
             <Routes>
               <Route  path="/" element={<Home functionStart={(value)=>{setBoolShowValue(value)}} />}></Route>
               <Route  path="/about" element={<About functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
