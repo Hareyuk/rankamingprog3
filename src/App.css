@@ -500,4 +500,55 @@ form a:visited, form a
     height: calc(100% - 80px);
     bottom: 0;
   }
+
+  .divButtons
+  {
+    display: flex;
+    position: initial;
+    flex-direction: row;
+    height: 50px;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 0px;
+  }
+  
+  .divButtons a
+  {
+    width: 48%;
+  }
+
+  .divButtons button 
+  {
+    font-size: 1.2em;
+    margin-top: 0.4em;
+  }
+
+  
+  .cardInfo:nth-child(3)
+  {
+    display: none;
+  }
+
+  .cardInfo
+  {
+    width: 48% !important;
+    margin: 0 !important;
+  }
+
+  .cardInfo:first-child
+  {
+    margin-right: 0.5em !important;
+  }
+
+  .cardInfo:nth-child(4)
+  {
+    width: 100% !important;
+    height: 120px;
+    margin-top: 0.8em !important;
+  }
+
+  .cardPlus p
+  {
+    margin-top: 0.5em !important;
+  }
 }

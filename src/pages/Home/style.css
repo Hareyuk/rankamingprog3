@@ -21,3 +21,17 @@ h2
     font-size: 30px;
     margin: 0.4em 0;
 }
+
+@media screen and (orientation: portrait) and (max-width: 450px)
+{
+
+    h1
+    {
+        margin-bottom: 0.1em !important;
+    }
+
+    section
+    {
+        margin-left: 0.6em;
+    }
+}

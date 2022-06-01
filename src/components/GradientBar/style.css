@@ -22,3 +22,22 @@ span
 {
     position: relative;
 }
+
+@media screen and (orientation: portrait) and (max-width: 450px)
+{
+    .gradientBar
+    {
+        overflow: hidden;
+    }
+    .gradientBar div
+    {
+        position: absolute;
+        border-radius: 0;
+    }
+
+    .gradientBar span
+    {
+        position: relative;
+        padding-left: 0.5em;
+    }
+}
