@@ -1,9 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import About from "./pages/About/About";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
@@ -17,7 +12,7 @@ import BackgroundD from "./components/BackgroundCanvas/BackgroundD";
 import React, { Fragment, useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import "./App.css";
-import { AlertContext} from "./components/MsgAlert/AlertContext";
+import { AlertContext } from "./components/MsgAlert/AlertContext";
 import statusTogglerAlert from "./components/MsgAlert/AlertContextToggle";
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "./firebaseconfig";
@@ -35,27 +30,23 @@ function App() {
       if (user) {
         handleChangeUser(user);
         handleChangeUid(user.uid);
-      }
-      else
-      {
+      } else {
         handleChangeUser(null);
         handleChangeUid(null);
       }
     });
   }, []);
 
-  const handleChangeUid=(uid)=>
-  {
+  const handleChangeUid = (uid) => {
     setUid(uid);
-  }
+  };
 
-  const handleChangeUser=(user)=>
-  {
+  const handleChangeUser = (user) => {
     setUser(user);
-  }
+  };
 
   const [boolShow, setBoolShow] = useState(false);
- /* const setBoolShowTrue=()=>
+  /* const setBoolShowTrue=()=>
   {
     setBoolShow(true);
   }
@@ -63,34 +54,124 @@ function App() {
   {
     setBoolShow(false);
   }*/
-  const setBoolShowValue=(value)=>
-  {
+  const setBoolShowValue = (value) => {
     setBoolShow(value);
-  }
+  };
   return (
     <Fragment>
       <BrowserRouter>
-      <BackgroundD></BackgroundD>
-      <div className="organize">
+        <BackgroundD></BackgroundD>
+        <div className="organize">
           <Header uid={uid}></Header>
-          <div className="divDesign">
-          </div>
+          <div className="divDesign"></div>
           <main>
-          <ButtonsAccount setUid={(value)=>{handleChangeUid(value)}} uid={uid} boolShow={boolShow}/>
+            <ButtonsAccount
+              setUid={(value) => {
+                handleChangeUid(value);
+              }}
+              uid={uid}
+              boolShow={boolShow}
+            />
             <Routes>
-              <Route  path="/" element={<Home functionStart={(value)=>{setBoolShowValue(value)}} />}></Route>
-              <Route  path="/about" element={<About functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
-              <Route  path="/login" element={<Login uid={uid} functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
-              <Route  path="/signup" element={<SignUp uid={uid} functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
-              <Route  path="/game/:id" element={<Game uid={uid} functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
-              <Route  path="/games" element={<Games functionStart={(value)=>{setBoolShowValue(value)}} />}></Route>
-              <Route  path="/rankings" element={<Rankings functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
-              <Route  path="/profile/:id" element={<Profile uid={uid} functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
-              <Route  path="/surprise/" element={<Surprise uid={uid} functionStart={(value)=>{setBoolShowValue(value)}}/>}></Route>
+              <Route
+                path="/"
+                element={
+                  <Home
+                    functionStart={(value) => {
+                      setBoolShowValue(value);
+                    }}
+                  />
+                }
+              ></Route>
+              <Route
+                path="/about"
+                element={
+                  <About
+                    functionStart={(value) => {
+                      setBoolShowValue(value);
+                    }}
+                  />
+                }
+              ></Route>
+              <Route
+                path="/login"
+                element={
+                  <Login
+                    uid={uid}
+                    functionStart={(value) => {
+                      setBoolShowValue(value);
+                    }}
+                  />
+                }
+              ></Route>
+              <Route
+                path="/signup"
+                element={
+                  <SignUp
+                    uid={uid}
+                    functionStart={(value) => {
+                      setBoolShowValue(value);
+                    }}
+                  />
+                }
+              ></Route>
+              <Route
+                path="/game/:id"
+                element={
+                  <Game
+                    uid={uid}
+                    functionStart={(value) => {
+                      setBoolShowValue(value);
+                    }}
+                  />
+                }
+              ></Route>
+              <Route
+                path="/games"
+                element={
+                  <Games
+                    functionStart={(value) => {
+                      setBoolShowValue(value);
+                    }}
+                  />
+                }
+              ></Route>
+              <Route
+                path="/rankings"
+                element={
+                  <Rankings
+                    functionStart={(value) => {
+                      setBoolShowValue(value);
+                    }}
+                  />
+                }
+              ></Route>
+              <Route
+                path="/profile/:id"
+                element={
+                  <Profile
+                    uid={uid}
+                    functionStart={(value) => {
+                      setBoolShowValue(value);
+                    }}
+                  />
+                }
+              ></Route>
+              <Route
+                path="/surprise/"
+                element={
+                  <Surprise
+                    uid={uid}
+                    functionStart={(value) => {
+                      setBoolShowValue(value);
+                    }}
+                  />
+                }
+              ></Route>
             </Routes>
           </main>
-      </div>
-        </BrowserRouter>
+        </div>
+      </BrowserRouter>
     </Fragment>
   );
 }
