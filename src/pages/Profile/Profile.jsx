@@ -14,7 +14,7 @@ const Profile = (props) => {
     const [pfpUrl, setPfpUrl] = useState("");
     const [originalPfp, setOriginalPfp] = useState("");
     const [phrase, setPhrase] = useState("");
-    const [insignias, setInsignias] = useState("");
+    //const [insignias, setInsignias] = useState("");
     const [boolUpdate, setBoolUpt] = useState(false);
     const [fileUpload, setFileToUpload] = useState("");
     const [imgFile, setImgFile] = useState("");
@@ -114,10 +114,10 @@ const Profile = (props) => {
                     <h3>Rankings</h3>
                     <div></div>
                 </div>
-                <div className="insignias">
+                {/* <div className="insignias">
                     <h3>Insignias</h3>
                     <div></div>
-                </div>
+                </div> */}
             </div>
         );
     };

@@ -1,16 +1,18 @@
 import "./style.css";
 import React, { useState, useEffect, Fragment } from "react";
 import Unity, { UnityContext } from "react-unity-webgl";
+import { RegisterExternalListener } from "react-unity-webgl";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseconfig";
-import { getMetadata } from "firebase/storage";
 const Game = (props) => {
   const [gamePic, setGPic] = useState("");
   const [gameName, setGName] = useState("");
   const [gameDescription, setGDescr] = useState("");
+  const [scorePlayer, setScorePlayer] = useState(0);
   const { functionStart, uid } = props;
   const { id: idGame } = useParams();
+  const [loadingGame, setLoadingGame] = useState(true);
   useEffect(() => {
     const getDataGame = async () => {
       const docRef = doc(db, "games", idGame);
@@ -19,7 +21,7 @@ const Game = (props) => {
       setGPic(imgsrc);
       setGName(name);
       setGDescr(description);
-      console.log(docSnap.data());
+      setLoadingGame(false);
     };
     if (uid) {
       getDataGame();
@@ -27,30 +29,28 @@ const Game = (props) => {
     } else functionStart(true);
   });
   const unityContext = new UnityContext({
-    loaderUrl: `/games/${idGame}/build/${idGame}.loader.js`,
-    dataUrl: `/games/${idGame}/build/${idGame}.data`,
-    frameworkUrl: `/games/${idGame}/build/${idGame}.framework.js`,
-    codeUrl: `/games/${idGame}/build/${idGame}.wasm`,
-    /* webGLContextAttributes: {
-            alpha: true,
-            antialias: true,
-            depth: true,
-            failIfMajorPerformanceCaveat: true,
-            powerPreference: "high-performance",
-            premultipliedAlpha: true,
-            preserveDrawingBuffer: true,
-            stencil: true,
-            desynchronized: true,
-            xrCompatible: true,
-          } */
+    loaderUrl: `/games/${idGame}/Build/${idGame}.loader.js`,
+    dataUrl: `/games/${idGame}/Build/${idGame}.data`,
+    frameworkUrl: `/games/${idGame}/Build/${idGame}.framework.js`,
+    codeUrl: `/games/${idGame}/Build/${idGame}.wasm`
   });
 
+  useEffect(function()
+  {
+    unityContext.on("SendPoints", function(score)
+    {
+      setScorePlayer(score);
+    });
+  }, [])
+
+  const [puntaje, setPuntaje] = useState(0);
   return (
     <Fragment>
       <h1>{gameName}</h1>
-      {uid ? (
+      {uid ? loadingGame ? "Cargando..." : (
         <Fragment>
           <Unity unityContext={unityContext} />
+          <p>{scorePlayer}</p>
           <div className="infoGamePage">
               <img src={gamePic} alt={gameName}/>
               <p>{gameDescription}</p>
