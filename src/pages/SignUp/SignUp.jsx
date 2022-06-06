@@ -38,7 +38,8 @@ const SignUp = (props) => {
         nick: userNick,
         phrase: "¡Demuestra al mundo el poder del rankeo!",
         pfpUrl: urlPfp,
-        insignias: {}
+        insignias: {},
+        clicks: 0
       });
       setUpdateData(false);
       navigate("/login");
