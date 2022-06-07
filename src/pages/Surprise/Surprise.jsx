@@ -54,7 +54,9 @@ const Surprise = (props)=>
                         <button className='button-19' onClick={addClick}>Click me!</button>
                 </section>
                 <section>
-                    <GradientBar text="Segundo extra"/>
+                    <GradientBar text="Líneas geométricas"/>
+                    <p>Tip: si se mantiene pulsado, se limpiará la pantalla</p>
+                    <iframe src="https://editor.p5js.org/axeldumas/full/hKVQpuqDQ"></iframe>
                 </section>
             </div>
         )

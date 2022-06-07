@@ -27,9 +27,13 @@ const ButtonsAccount = (props) => {
     if(uid) 
     getData();
   });
+
+  let nameClass = "";
+  if(boolShow) nameClass="divButtons";
+  else nameClass="hideAny"
   
   return (
-    <div className="divButtons">
+    <div className={nameClass}>
       {boolShow ? (
         uid != null ? (
             <Fragment>

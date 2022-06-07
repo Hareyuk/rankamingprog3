@@ -9,6 +9,12 @@
     min-height: 350px;
 }
 
+iframe
+{
+  height: 542px;
+  width: 500px;
+}
+
 /* CSS  TOOK FROM https://getcssscan.com/css-buttons-examples*/
 .button-19 {
   appearance: button;
