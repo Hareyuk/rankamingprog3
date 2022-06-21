@@ -18,6 +18,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "./firebaseconfig";
 import Unity, { UnityContext } from "react-unity-webgl";
 import ButtonsAccount from "./components/ButtonsAccount/ButtonsAccount";
+import HomePh from "./pages/HomePh/HomePh";
 //Context
 
 function App() {
@@ -77,6 +78,16 @@ function App() {
                 path="/"
                 element={
                   <Home
+                    functionStart={(value) => {
+                      setBoolShowValue(value);
+                    }}
+                  />
+                }
+              ></Route>
+              <Route
+                path="/HomePh"
+                element={
+                  <HomePh
                     functionStart={(value) => {
                       setBoolShowValue(value);
                     }}

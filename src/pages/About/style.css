@@ -1,0 +1,28 @@
+.gradientBar
+{
+    margin-top: 2em;
+}
+
+p
+{
+    font-size: 1.2em;
+    width: 50%;
+}
+
+@media screen and (orientation: landscape) and (max-height: 450px)
+{
+    p
+    {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (orientation: portrait) and (max-width: 450px)
+{
+    p
+    {
+        width: 90%;
+        margin: 0 auto;
+    }
+}

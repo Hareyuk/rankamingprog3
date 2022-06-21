@@ -45,13 +45,14 @@ const Game = (props) => {
 
   const [puntaje, setPuntaje] = useState(0);
   return (
-    <Fragment>
-      <h1>{gameName}</h1>
+    <div className="divFlex">
       {uid ? loadingGame ? "Cargando..." : (
         <Fragment>
-          <Unity unityContext={unityContext} />
-          <p>{scorePlayer}</p>
+          <div className="gameDiv">
+            <Unity unityContext={unityContext} />
+          </div>
           <div className="infoGamePage">
+              <h1>{gameName}</h1>
               <img src={gamePic} alt={gameName}/>
               <p>{gameDescription}</p>
           </div>
@@ -61,7 +62,7 @@ const Game = (props) => {
           Lo sentimos, para acceder al juego debe iniciar sesión.
         </h2>
       )}
-    </Fragment>
+    </div>
   );
 };
 export default Game;
