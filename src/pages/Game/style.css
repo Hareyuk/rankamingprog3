@@ -6,8 +6,14 @@ canvas
     height: 100%;
     margin: 0 auto;
     display: block;
+    aspect-ratio: 1/1;
 }
 
+.cardRank
+{
+    width: 80% !important;
+    height: 500px !important;
+}
 .divFlex
 {
     display: flex;
@@ -17,7 +23,7 @@ canvas
 
 .divFlex > div
 {
-    width: 50%;
+    width: 500px;
 }
 
 
@@ -32,10 +38,26 @@ canvas
         margin-top: 0em;
     }
 
-    canvas
+    .divFlex > div
     {
-         width: 380px;
-         height: 380px;
+        width: 50%;
+    }
+    
+    .divFlex > div:last-child
+    {
+        width: 100%;
+        text-align: center;
+    }
+
+    div.cardRank
+    {
+        width: 100% !important;
+        height: 100%;
+    }
+
+    .divFlex > div:last-child h1
+    {
+        text-align: center;
     }
 }
 
@@ -49,5 +71,16 @@ canvas
     .divFlex
     {
         margin-top: 1em;
+    }
+
+    .infoGamePage
+    {
+        padding-bottom: 2em;
+    }
+
+    div.cardRank
+    {
+        margin: 1em auto !important;
+        width: 100% !important;
     }
 }

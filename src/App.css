@@ -227,8 +227,11 @@ font-style: normal;
     font-size: 1.5em;
 }
 
+
+
 .cardInfo p
 {
+  width: 100%;
     margin-top: 0.2em;
     margin-bottom: 0.2em;
 }

@@ -3,7 +3,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import Unity, { UnityContext } from "react-unity-webgl";
 import { RegisterExternalListener } from "react-unity-webgl";
 import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, collection, getDocs, setDoc, query, orderBy} from "firebase/firestore";
 import { db } from "../../firebaseconfig";
 const Game = (props) => {
   const [gamePic, setGPic] = useState("");
@@ -13,6 +13,10 @@ const Game = (props) => {
   const { functionStart, uid } = props;
   const { id: idGame } = useParams();
   const [loadingGame, setLoadingGame] = useState(true);
+  const [userDataFull, setUserDataFull] = useState([]);
+  const [rankingData, setRankingData] = useState(null);
+  const [updateRank, setUpdateRank] = useState(true);
+  //GetGameData
   useEffect(() => {
     const getDataGame = async () => {
       const docRef = doc(db, "games", idGame);
@@ -35,21 +39,141 @@ const Game = (props) => {
     codeUrl: `/games/${idGame}/Build/${idGame}.wasm`
   });
 
+  //Receive Points From Game
   useEffect(function()
   {
     unityContext.on("SendPoints", function(score)
     {
       setScorePlayer(score);
     });
-  }, [])
+  }, []);
 
-  const [puntaje, setPuntaje] = useState(0);
+  //Enable update
+  const enableUpdate=()=>
+  {
+    console.log("Función enableUpdate Llamada");
+    setUpdateRank(true);
+    setRankingData(null);
+  }
+  
+
+  //Update Score Player in Firebase
+  useEffect(function()
+  {
+    const updateScorePlayer = async ()=>
+    {
+      await updateDoc(doc(db, "rankings", idGame, "users", uid), {
+        score: scorePlayer,
+        date: Date.now()
+      });
+      enableUpdate();
+    }
+    const updateDataGame = async()=>
+    {
+      //Get subcollection
+      const docRef = doc(db, "rankings", idGame);
+      const colRef = collection(docRef, "users");
+      //Get datas
+      const querySnapshot = await getDocs(colRef);
+      let foundUser = false;
+      querySnapshot.forEach((doc) => 
+      {
+        if(doc.id === uid) foundUser = true;
+        const scoreWritten = doc.data().score;
+        if(scorePlayer > scoreWritten)
+        {
+          //UpdateNewScore
+          updateScorePlayer();
+        }
+      });
+      if(!foundUser)
+      {
+        //The score doesn't exist, add data
+        const newData = {score: scorePlayer, date: Date.now()};
+        await setDoc(doc(db, "rankings", idGame, "users", uid), newData);
+        enableUpdate();
+      }
+    }
+    if(scorePlayer != 0)
+    {
+      updateDataGame();
+    }
+  }, [scorePlayer]);
+
+  //Get all data users
+  useState(()=>
+  {
+    let arrayUsers = [];
+    const getAllDataUsers= async ()=>
+    {
+      const querySnapshot = await getDocs(collection(db, "users"));
+      querySnapshot.forEach((doc)=>
+      {
+        arrayUsers[doc.id] = doc.data();
+      })
+      setUserDataFull(arrayUsers);
+    }
+    getAllDataUsers();
+  });
+
+  //GetGameUpdateRanking
+  useState(()=>
+  {
+    const getDataRankings = async ()=>
+    {
+      console.log("Actualizar data");
+      const q = await query(collection(db, "rankings", idGame, "users"), orderBy("score"));
+      const querySnapshot = await getDocs(q);
+      let arrayGameData = {id: idGame, name: gameName, playersScores: []};
+      await querySnapshot.forEach((doc) => {
+        let objData = doc.data();
+        objData.id = doc.id;
+        arrayGameData.playersScores.push(objData);
+      });
+      setRankingData(arrayGameData);
+      setUpdateRank(false);
+    }
+    console.log("Estado update: ", updateRank);
+    if(updateRank) getDataRankings();
+  }, [updateRank]);
+
+  //DIv Rank
+  const buildDivRank = () => {
+    return (
+      <div key={idGame} className="cardInfo cardRank">
+        <h3>Ranking de {gameName}</h3>
+        <div className="rankList">
+          {rankingData.playersScores.map((item, i) => {
+            const {pfpUrl, nick} = userDataFull[item.id];
+            return (
+              <div key={item.id} className="userRank">
+                <div className="borderPic">
+                  <div></div>
+                  <img src={pfpUrl} alt={nick} />
+                </div>
+                <div className="boxTextsRank">
+                  <h4>
+                    {i + 1} - {nick}
+                  </h4>
+                  <p>{item.score}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+  
   return (
     <div className="divFlex">
       {uid ? loadingGame ? "Cargando..." : (
         <Fragment>
           <div className="gameDiv">
             <Unity unityContext={unityContext} />
+          </div>
+          <div className="rankSection">
+          {rankingData ? buildDivRank() : ""}
           </div>
           <div className="infoGamePage">
               <h1>{gameName}</h1>

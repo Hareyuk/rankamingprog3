@@ -1,7 +1,7 @@
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
 import React, { Fragment, useCallback, useState } from 'react';
 import Cropper from 'react-easy-crop';
-import getCroppedImg from './cropImage'
+import getCroppedImg from './cropImage';
 
 const CropperCompr = (props) => {
     const {img, aspect, setBool, cropSize, setImg} = props;     
@@ -42,7 +42,7 @@ const CropperCompr = (props) => {
         onRotationChange={setRotation}
         onZoomChange={setZoom}
       />
-      <button onClick={showCroppedImage}>
+      <button className='btn-crop-ready' onClick={showCroppedImage}>
         Listo
       </button>
     </div>

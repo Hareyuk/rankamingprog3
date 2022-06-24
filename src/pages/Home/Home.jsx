@@ -4,20 +4,46 @@ import BackgroundD from "../../components/BackgroundCanvas/BackgroundD";
 import GradientBar from "../../components/GradientBar/GradientBar";
 import { Link } from "react-router-dom";
 import ButtonsAccount from "../../components/ButtonsAccount/ButtonsAccount";
+import { collection, query, where, getDocs, orderBy, limit } from "firebase/firestore";
+import { db } from "../../firebaseconfig";
+
 const Home = (props) => {
+  const [finishedLoadingGames, setFinishedLoadingGames] = useState(false);
+  const [gamesData, setGamesData] = useState([]);
+  const [rankingData, setRankingData] = useState([]);
+  const [userDataFull, setUserDataFull] = useState([]);
+
+  //Get all data users
+  useState(()=>
+  {
+    let arrayUsers = [];
+    const getAllDataUsers= async ()=>
+    {
+      const querySnapshot = await getDocs(collection(db, "users"));
+      querySnapshot.forEach((doc)=>
+      {
+        arrayUsers[doc.id] = doc.data();
+      })
+      setUserDataFull(arrayUsers);
+    }
+    getAllDataUsers();
+  })
+
   const buildDiv = (item) => {
     return (
       <div key={item.key} className="cardInfo">
+        <Link to={"game/"+item.id}>
         <div className="pdDiv">
           <div className="infoDiv">
             <div className="divImg">
-              <img src={item.picMin} alt={"Imagen gráfica de " + item.nombre} />
+              <img src={item.imgsrc} alt={"Imagen gráfica de " + item.name} />
             </div>
-            <h3>{item.nombre}</h3>
-            <p>{item.desc}</p>
+            <h3>{item.name}</h3>
+            <p>{item.description}</p>
             <h4>géneros: {obtainGens(item)}</h4>
           </div>
         </div>
+        </Link>
       </div>
     );
   };
@@ -31,26 +57,29 @@ const Home = (props) => {
   };
   const buildDivRank = (item) => {
     return (
-      <div key={item.key} className="cardInfo cardRank">
-        <h3>{item.nombre}</h3>
+      <div key={item.name} className="cardInfo cardRank">
+        <Link to={"/game/"+item.id}>
+        <h3>{item.name}</h3>
         <div className="rankList">
-          {item.arrayPuntos.map((item, i) => {
+          {item.playersScores.map((item, i) => {
+            const {pfpUrl, nick} = userDataFull[item.id];
             return (
               <div className="userRank">
                 <div className="borderPic">
                   <div></div>
-                  <img src={item.picUser} alt={item.nombre} />
+                  <img src={pfpUrl} alt={nick} />
                 </div>
                 <div className="boxTextsRank">
                   <h4>
-                    {i + 1} - {item.nombre}
+                    {i + 1} - {nick}
                   </h4>
-                  <p>{item.puntaje}</p>
+                  <p>{item.score}</p>
                 </div>
               </div>
             );
           })}
         </div>
+        </Link>
       </div>
     );
   };
@@ -66,181 +95,48 @@ const Home = (props) => {
     );
   };
 
-  var placeHolder = [
-    {
-      key: 0,
-      nombre: "Rompecabezas mineras",
-      desc: "Un juego de armar rompecabezas en el menor tiempo posible, ¡aprovehcalo! Podés elegir a tu personaje favorito!",
-      genres: ["puzzles", "acción"],
-      picMin: "/img/placeholderImg.jpg",
-    },
-    {
-      key: 1,
-      nombre: "Rompecabezas mineras",
-      desc: "Un juego de armar rompecabezas en el menor tiempo posible, ¡aprovehcalo! Podés elegir a tu personaje favorito!",
-      genres: ["puzzles", "acción"],
-      picMin: "/img/placeholderImg.jpg",
-    },
-    {
-      key: 2,
-      nombre: "Rompecabezas mineras",
-      desc: "Un juego de armar rompecabezas en el menor tiempo posible, ¡aprovehcalo! Podés elegir a tu personaje favorito!",
-      genres: ["puzzles", "acción"],
-      picMin: "/img/placeholderImg.jpg",
-    },
-    {
-      key: 3,
-      nombre: "Rompecabezas mineras",
-      desc: "Un juego de armar rompecabezas en el menor tiempo posible, ¡aprovehcalo! Podés elegir a tu personaje favorito!",
-      genres: ["puzzles", "acción"],
-      picMin: "/img/placeholderImg.jpg",
-    },
-  ];
-
-  var placeHolderUser = [
-    {
-      nombre: "Juego1",
-      arrayPuntos: [
-        {
-          key: "a1",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/placeholderImgProfile.jpg",
-          puntaje: 200,
-        },
-        {
-          key: "a2",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 900,
-        },
-        {
-          key: "a3",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 600,
-        },
-        {
-          key: "a4",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 700,
-        },
-      ],
-    },
-    {
-      nombre: "Juego2",
-      arrayPuntos: [
-        {
-          key: "a1",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 7600,
-        },
-        {
-          key: "a2",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 900,
-        },
-        {
-          key: "a3",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 100,
-        },
-        {
-          key: "a4",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 9900,
-        },
-      ],
-    },
-    {
-      nombre: "Juego3",
-      arrayPuntos: [
-        {
-          key: "a1",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 5100,
-        },
-        {
-          key: "a2",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 2200,
-        },
-        {
-          key: "a3",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 6500,
-        },
-        {
-          key: "a4",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 1200,
-        },
-      ],
-    },
-    {
-      nombre: "Juego4",
-      arrayPuntos: [
-        {
-          key: "a1",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 5100,
-        },
-        {
-          key: "a2",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 2200,
-        },
-        {
-          key: "a3",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 6500,
-        },
-        {
-          key: "a4",
-          nombre: "Akslart",
-          frase: "Mi cielo! Mi amor!",
-          picUser: "/img/placeholderImgProfile.jpg",
-          puntaje: 1200,
-        },
-      ],
-    },
-  ];
-
+  //First, obtain data games
   const { functionStart } = props;
   useEffect(() => {
+    const getDataGames = async ()=>
+    {
+      const q = query(collection(db, "games"), orderBy("timestamp"), limit(4));
+      const querySnapshot = await getDocs(q);
+      let arrayData = [];
+      querySnapshot.forEach((doc) => {
+        let objData = doc.data();
+        objData.id = doc.id;
+        arrayData.push(objData);
+      });
+      setGamesData(arrayData);
+      setFinishedLoadingGames(true);
+    }
     functionStart(true);
-  }, []);
+    getDataGames();
+  });
 
-  var newArray2 = placeHolderUser.forEach((arrayGame) => {
-    arrayGame.arrayPuntos.sort((a,b)=>parseFloat(b.puntaje)-parseFloat(a.puntaje));
-    });
-
+  //Data Rankings
+  useEffect(()=>
+  {
+    const getDataRankings = async ()=>
+    {
+      let arrayData = [];
+      await gamesData.map(async (item, index)=>{
+        const q = await query(collection(db, "rankings", item.id, "users"), orderBy("score"), limit(10));
+        const querySnapshot = await getDocs(q);
+        let arrayGameData = {id: item.id, name: item.name, playersScores: []};
+        await querySnapshot.forEach((doc) => {
+          let objData = doc.data();
+          objData.id = doc.id;
+          arrayGameData.playersScores.push(objData);
+        });
+        arrayData.push(arrayGameData);
+      });
+      setRankingData(arrayData);
+    }
+    if(finishedLoadingGames)getDataRankings();
+  }, [finishedLoadingGames]);
+    
   return (
     <Fragment>
       <div className="startmain">
@@ -253,15 +149,15 @@ const Home = (props) => {
         <section>
           <h2>Últimos juegos</h2>
           <div className="listDesign">
-            {placeHolder.map((item, i) =>
-              i < 3 ? buildDiv(item) : buildDivPlus("/games", "Más juegos")
+            {gamesData.map((item, i) =>
+              i < 3 ? buildDiv(item) : buildDivPlus(("/games/"), "Más juegos")
             )}
           </div>
         </section>
         <section>
           <h2>Rankings</h2>
           <div className="listDesign">
-            {placeHolderUser.map((item, i) =>
+            {rankingData.map((item, i) =>
               i < 3
                 ? buildDivRank(item)
                 : buildDivPlus("/rankings", "Más rankings")

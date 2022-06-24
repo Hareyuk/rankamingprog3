@@ -30,7 +30,6 @@ const Profile = (props) => {
             setOriginalPfp(pfpUrl);
             setPhrase(phrase);
         };
-
         getDataGame();
     }, []);
 

@@ -39,7 +39,7 @@ const ButtonsAccount = (props) => {
             <Fragment>
               <div className="userInfo">
                 <img src={pfpUrl} alt={"Foto de " + nick}/>
-                <p>{nick}!</p>
+                <p>{nick}</p>
               </div>
               <ButtonAccess
                 functionToCall={logOut}

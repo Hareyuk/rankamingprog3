@@ -90,3 +90,38 @@ form.editProfile > div:first-child label
     transform: translate(-50%, -50%);
 }
 
+.btn-crop-ready
+{
+  padding: 1em;
+  width: 500px;
+  color:rgba(106, 215, 222, 1)
+}
+
+.btn-crop-ready:hover
+{
+  color:rgba(0, 16, 255, 0.6);
+  background-color: rgba(106, 215, 222, 1);
+  border-color: rgba(106, 215, 222, 1);
+}
+
+@media screen and (orientation: landscape) and (max-height: 450px)
+{
+    .btn-crop-ready
+    {
+        top: 50% !important;
+        right: 0.5em !important;
+        left: unset !important;
+        position: fixed !important;
+        transform: unset !important;
+        width: 100px !important;
+    }
+}
+
+@media screen and (orientation: portrait) and (max-width: 450px)
+{
+    .btn-crop-ready
+    {
+        font-weight: bold;
+        width: 80%;
+    }
+}
