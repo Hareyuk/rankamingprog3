@@ -15,7 +15,6 @@ const Game = (props) => {
   const [loadingGame, setLoadingGame] = useState(true);
   const [userDataFull, setUserDataFull] = useState([]);
   const [rankingData, setRankingData] = useState(null);
-  const [updateRank, setUpdateRank] = useState(true);
   //GetGameData
   useEffect(() => {
     const getDataGame = async () => {
@@ -48,13 +47,21 @@ const Game = (props) => {
     });
   }, []);
 
-  //Enable update
-  const enableUpdate=()=>
+  //Attempt to update
+  const updateDataRanking= async ()=>
   {
-    console.log("Función enableUpdate Llamada");
-    setUpdateRank(true);
-    setRankingData(null);
+    console.log("Actualizar data");
+    const q = await query(collection(db, "rankings", idGame, "users"), orderBy("score"));
+    const querySnapshot = await getDocs(q);
+    let arrayGameData = {id: idGame, name: gameName, playersScores: []};
+    await querySnapshot.forEach((doc) => {
+      let objData = doc.data();
+      objData.id = doc.id;
+      arrayGameData.playersScores.push(objData);
+    });
+    setRankingData(arrayGameData);
   }
+  updateDataRanking();
   
 
   //Update Score Player in Firebase
@@ -66,8 +73,9 @@ const Game = (props) => {
         score: scorePlayer,
         date: Date.now()
       });
-      enableUpdate();
+      updateDataRanking();
     }
+
     const updateDataGame = async()=>
     {
       //Get subcollection
@@ -91,7 +99,7 @@ const Game = (props) => {
         //The score doesn't exist, add data
         const newData = {score: scorePlayer, date: Date.now()};
         await setDoc(doc(db, "rankings", idGame, "users", uid), newData);
-        enableUpdate();
+        updateDataRanking();
       }
     }
     if(scorePlayer != 0)
@@ -116,26 +124,6 @@ const Game = (props) => {
     getAllDataUsers();
   });
 
-  //GetGameUpdateRanking
-  useState(()=>
-  {
-    const getDataRankings = async ()=>
-    {
-      console.log("Actualizar data");
-      const q = await query(collection(db, "rankings", idGame, "users"), orderBy("score"));
-      const querySnapshot = await getDocs(q);
-      let arrayGameData = {id: idGame, name: gameName, playersScores: []};
-      await querySnapshot.forEach((doc) => {
-        let objData = doc.data();
-        objData.id = doc.id;
-        arrayGameData.playersScores.push(objData);
-      });
-      setRankingData(arrayGameData);
-      setUpdateRank(false);
-    }
-    console.log("Estado update: ", updateRank);
-    if(updateRank) getDataRankings();
-  }, [updateRank]);
 
   //DIv Rank
   const buildDivRank = () => {

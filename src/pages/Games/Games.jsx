@@ -26,7 +26,7 @@ const Games = (props) => {
   const buildDiv = (item) => {
     return (
       <div key={item.key} className="cardInfo">
-        <Link to={"game/"+item.id}>
+        <Link to={"/game/"+item.id}>
         <div className="pdDiv">
           <div className="infoDiv">
             <div className="divImg">

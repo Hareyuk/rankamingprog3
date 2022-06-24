@@ -9,9 +9,9 @@ canvas
     aspect-ratio: 1/1;
 }
 
-.cardRank
+.divFlex > div > .cardRank
 {
-    width: 80% !important;
+    width: 90% !important;
     height: 500px !important;
 }
 .divFlex
@@ -24,6 +24,11 @@ canvas
 .divFlex > div
 {
     width: 500px;
+}
+
+.infoGamePage img
+{
+    width: 100%;
 }
 
 
@@ -49,7 +54,7 @@ canvas
         text-align: center;
     }
 
-    div.cardRank
+    .divFlex > div > div.cardRank
     {
         width: 100% !important;
         height: 100%;
@@ -78,7 +83,7 @@ canvas
         padding-bottom: 2em;
     }
 
-    div.cardRank
+    .divFlex > div > div.cardRank
     {
         margin: 1em auto !important;
         width: 100% !important;
