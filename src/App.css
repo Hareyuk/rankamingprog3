@@ -299,6 +299,11 @@ font-style: normal;
   padding: 0.4em 0px;
 }
 
+.ownerScore
+{
+  background: linear-gradient(225deg, rgb(55 31 255 / 58%), rgb(0 255 255 / 60%));
+}
+
 .userRank h4
 {
   font-weight: normal;

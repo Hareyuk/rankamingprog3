@@ -3,7 +3,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import Unity, { UnityContext } from "react-unity-webgl";
 import { RegisterExternalListener } from "react-unity-webgl";
 import { useParams } from "react-router-dom";
-import { doc, getDoc, updateDoc, collection, getDocs, setDoc, query, orderBy} from "firebase/firestore";
+import {limitToLast, doc, getDoc, updateDoc, collection, getDocs, setDoc, query, orderBy} from "firebase/firestore";
 import { db } from "../../firebaseconfig";
 const Game = (props) => {
   const [gamePic, setGPic] = useState("");
@@ -70,8 +70,8 @@ const Game = (props) => {
     const updateScorePlayer = async ()=>
     {
       await updateDoc(doc(db, "rankings", idGame, "users", uid), {
-        score: scorePlayer,
-        date: Date.now()
+        score: -(scorePlayer),
+        date: -(Date.now())
       });
       updateDataRanking();
     }
@@ -88,7 +88,8 @@ const Game = (props) => {
       {
         if(doc.id === uid) foundUser = true;
         const scoreWritten = doc.data().score;
-        if(scorePlayer > scoreWritten)
+        const scoreNumberWritten = -parseInt(scoreWritten);
+        if(scorePlayer > scoreNumberWritten)
         {
           //UpdateNewScore
           updateScorePlayer();
@@ -97,7 +98,7 @@ const Game = (props) => {
       if(!foundUser)
       {
         //The score doesn't exist, add data
-        const newData = {score: scorePlayer, date: Date.now()};
+        const newData = {score: -(scorePlayer), date: Date.now()};
         await setDoc(doc(db, "rankings", idGame, "users", uid), newData);
         updateDataRanking();
       }
@@ -131,10 +132,15 @@ const Game = (props) => {
       <div key={idGame} className="cardInfo cardRank">
         <h3>Ranking de {gameName}</h3>
         <div className="rankList">
+          {
+            !rankingData.playersScores.length ? <p style={{textAlign: "center"}}>Aún no hay datos para este minijuego.</p> : ""
+          }
           {rankingData.playersScores.map((item, i) => {
             const {pfpUrl, nick} = userDataFull[item.id];
+            let className = "userRank";
+            if(item.id == uid) className+=" ownerScore"; 
             return (
-              <div key={item.id} className="userRank">
+              <div key={item.id} className={className}>
                 <div className="borderPic">
                   <div></div>
                   <img src={pfpUrl} alt={nick} />
@@ -143,7 +149,7 @@ const Game = (props) => {
                   <h4>
                     {i + 1} - {nick}
                   </h4>
-                  <p>{item.score}</p>
+                  <p>{-item.score}</p>
                 </div>
               </div>
             );

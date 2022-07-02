@@ -4,7 +4,7 @@ import BackgroundD from "../../components/BackgroundCanvas/BackgroundD";
 import GradientBar from "../../components/GradientBar/GradientBar";
 import { Link } from "react-router-dom";
 import ButtonsAccount from "../../components/ButtonsAccount/ButtonsAccount";
-import { collection, query, where, getDocs, orderBy, limit } from "firebase/firestore";
+import { collection, query, where, getDocs, orderBy, limit, limitToLast } from "firebase/firestore";
 import { db } from "../../firebaseconfig";
 
 const Home = (props) => {
@@ -61,6 +61,9 @@ const Home = (props) => {
         <Link to={"/game/"+item.id}>
         <h3>{item.name}</h3>
         <div className="rankList">
+          {
+            !item.playersScores.length ? <p style={{textAlign: "center"}}>Aún no hay datos para este minijuego.</p> : ""
+          }
           {item.playersScores.map((item, i) => {
             const {pfpUrl, nick} = userDataFull[item.id];
             return (
@@ -73,7 +76,7 @@ const Home = (props) => {
                   <h4>
                     {i + 1} - {nick}
                   </h4>
-                  <p>{item.score}</p>
+                  <p>{-item.score}</p>
                 </div>
               </div>
             );
@@ -100,7 +103,7 @@ const Home = (props) => {
   useEffect(() => {
     const getDataGames = async ()=>
     {
-      const q = query(collection(db, "games"), orderBy("timestamp"), limit(4));
+      const q = query(collection(db, "games"), orderBy("timestamp"), limitToLast(4));
       const querySnapshot = await getDocs(q);
       let arrayData = [];
       querySnapshot.forEach((doc) => {
@@ -122,7 +125,7 @@ const Home = (props) => {
     {
       let arrayData = [];
       await gamesData.map(async (item, index)=>{
-        const q = await query(collection(db, "rankings", item.id, "users"), orderBy("score"), limit(10));
+        const q = await query(collection(db, "rankings", item.id, "users"), orderBy("score"), limitToLast(10));
         const querySnapshot = await getDocs(q);
         let arrayGameData = {id: item.id, name: item.name, playersScores: []};
         await querySnapshot.forEach((doc) => {

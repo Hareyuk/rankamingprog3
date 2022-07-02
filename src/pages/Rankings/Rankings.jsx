@@ -76,6 +76,9 @@ const {functionStart} = props;
         <Link to={"/game/"+item.id}>
         <h3>{item.name}</h3>
         <div className="rankList">
+          {
+            !item.playersScores.length ? <p style={{textAlign: "center"}}>Aún no hay datos para este minijuego.</p> : ""
+          }
           {item.playersScores.map((item, i) => {
             const {pfpUrl, nick} = userDataFull[item.id];
             return (
@@ -88,7 +91,7 @@ const {functionStart} = props;
                   <h4>
                     {i + 1} - {nick}
                   </h4>
-                  <p>{item.score}</p>
+                  <p>{-item.score}</p>
                 </div>
               </div>
             );
