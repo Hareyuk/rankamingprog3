@@ -28,13 +28,15 @@ const Login = (props)=>
         .catch((e)=>
         {
             console.error(e);
-            if(e.code == "auth/wrong-password")
+            if(e.code == "auth/wrong-password") setMsgError("Contraseña incorrecta");
+            else if(e.code == "auth/user-not-found") setMsgError("Usuario no encontrado");
+            else
             {
-                setMsgError("Contraseña incorrecta");
-            }
-            if(e.code == "auth/user-not-found")
-            {
-                setMsgError("Usuario no encontrado");
+                if(userMail.trim() == "" || userPass == "")
+                {
+                    setMsgError("Los datos están incompletos, complételo por favor.")
+                }
+                else setMsgError("Ha ocurrido un error, reintente luego por favor.");
             }
         });
     }
@@ -66,6 +68,9 @@ const Login = (props)=>
             />
             <br/>
             <input className="form-button" value="Iniciar sesión" type="submit" />
+            {
+                msgError ? <label className='errorAuth'>{msgError}</label>:""
+            }
 
             
             <Link to="/signup"><p>¿No tienes cuenta? ¡Ingrese aquí para registrarse!</p></Link>

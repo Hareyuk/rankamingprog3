@@ -67,6 +67,7 @@ const Home = (props) => {
           {item.playersScores.map((item, i) => {
             const {pfpUrl, nick} = userDataFull[item.id];
             return (
+              <Link to={"/profile/" + item.id}>
               <div className="userRank">
                 <div className="borderPic">
                   <div></div>
@@ -79,6 +80,7 @@ const Home = (props) => {
                   <p>{-item.score}</p>
                 </div>
               </div>
+              </Link>
             );
           })}
         </div>

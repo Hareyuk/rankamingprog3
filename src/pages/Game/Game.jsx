@@ -2,7 +2,7 @@ import "./style.css";
 import React, { useState, useEffect, Fragment } from "react";
 import Unity, { UnityContext } from "react-unity-webgl";
 import { RegisterExternalListener } from "react-unity-webgl";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {limitToLast, doc, getDoc, updateDoc, collection, getDocs, setDoc, query, orderBy} from "firebase/firestore";
 import { db } from "../../firebaseconfig";
 const Game = (props) => {
@@ -140,6 +140,7 @@ const Game = (props) => {
             let className = "userRank";
             if(item.id == uid) className+=" ownerScore"; 
             return (
+              <Link to={"/profile/" + item.id}>
               <div key={item.id} className={className}>
                 <div className="borderPic">
                   <div></div>
@@ -152,6 +153,7 @@ const Game = (props) => {
                   <p>{-item.score}</p>
                 </div>
               </div>
+              </Link>
             );
           })}
         </div>

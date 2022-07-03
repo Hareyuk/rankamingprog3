@@ -31,7 +31,7 @@ const Profile = (props) => {
             setPhrase(phrase);
         };
         getDataGame();
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         if (!boolCrop) //Se pone esto en falso después de croppear
@@ -109,10 +109,10 @@ const Profile = (props) => {
                         <p>{phrase}</p>
                     </div>
                 </div>
-                <div className="rankingsList">
+                {/* <div className="rankingsList">
                     <h3>Rankings</h3>
                     <div></div>
-                </div>
+                </div> */}
                 {/* <div className="insignias">
                     <h3>Insignias</h3>
                     <div></div>

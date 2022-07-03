@@ -82,10 +82,11 @@ const {functionStart} = props;
           {item.playersScores.map((item, i) => {
             const {pfpUrl, nick} = userDataFull[item.id];
             return (
+              <Link to={"/profile/" + item.id}>
               <div className="userRank">
                 <div className="borderPic">
                   <div></div>
-                  <img src={pfpUrl} alt={nick} />
+                    <img src={pfpUrl} alt={nick} />
                 </div>
                 <div className="boxTextsRank">
                   <h4>
@@ -94,6 +95,7 @@ const {functionStart} = props;
                   <p>{-item.score}</p>
                 </div>
               </div>
+              </Link>
             );
           })}
         </div>

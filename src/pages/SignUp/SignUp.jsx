@@ -51,29 +51,48 @@ const SignUp = (props) => {
 
   const signupUser = (e) => {
     e.preventDefault();
-    try {
-      createUserWithEmailAndPassword(auth, userMail, userPass)
-        .then((r) => {
-          console.log("¡Usuario registrado con éxito!");
-          setUpdateData(true);
-        })
-        .catch((e) => {
-          //auth/invalid-email
-          if (e.code == "auth/invalid-email") {
-            setMsgError("Formato de email inválido");
-          }
-          //auth/weak-password
-          if (e.code == "auth/weak-password") {
-            setMsgError("Contraseña débil, debe ser al menos 6 caracteres");
-          }
-          if (e.code == "auth/email-already-in-use") {
-            setMsgError("Contraseña ya utilizado");
-          }
-          console.error("Error Firebase: ", e);
-        });
-    } catch (err) {
-      console.log(err);
+    if(userNick != "")
+    {
+      if(userPassConfirm != userPass)
+      {
+        setMsgError("Las contraseñas no coinciden.")
+      }
+      else
+      {
+        try {
+          createUserWithEmailAndPassword(auth, userMail, userPass)
+            .then((r) => {
+              console.log("¡Usuario registrado con éxito!");
+              setUpdateData(true);
+            })
+            .catch((e) => {
+              //auth/invalid-email
+              if (e.code == "auth/invalid-email") {
+                setMsgError("Formato de email inválido");
+              }
+              //auth/weak-password
+              else if (e.code == "auth/weak-password") {
+                setMsgError("Contraseña débil, debe ser al menos 6 caracteres");
+              }
+              else if (e.code == "auth/email-already-in-use") {
+                setMsgError("Email ya utilizado");
+              }
+              else if(userMail.trim() == "" || userPass == "")
+              {
+                setMsgError("Los datos están incompletos, complételo por favor.")
+              }
+              console.error("Error Firebase: ", e);
+            });
+        } catch (err) {
+          console.log(err);
+        }
+      }
     }
+    else
+    {
+      setMsgError("Los datos están incompletos, complételo por favor.")
+    }
+    
   };
 
   return (
@@ -124,7 +143,9 @@ const SignUp = (props) => {
           value={userPassConfirm}
         />
         <input className="form-button" value="Registrarse" type="submit" />
-
+        {
+            msgError ? <label className='errorAuth'>{msgError}</label>:""
+        }
         <Link to="/login">
           <p>¿Ya tienes una cuenta? ¡Ingrese aquí para iniciar sesión!</p>
         </Link>
