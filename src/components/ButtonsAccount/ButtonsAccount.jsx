@@ -4,7 +4,7 @@ import { ButtonAccess } from "../ButtonAccess/ButtonAccess";
 import { auth, db } from "../../firebaseconfig";
 import { doc, getDoc } from "firebase/firestore";
 const ButtonsAccount = (props) => {
-  const {uid, boolShow, setUid} = props;
+  const { uid, boolShow, setUid } = props;
   const navigate = useNavigate();
   const logOut = () => {
     auth.signOut();
@@ -12,58 +12,48 @@ const ButtonsAccount = (props) => {
     navigate("/");
   };
 
-  const [pfpUrl, setPfpUrl] = useState("");
-  const [nick, setNick] = useState("");
+  const [pfpUrl, setPfpUrl] = useState(null);
+  const [nick, setNick] = useState(null);
 
   useEffect(() => {
-    const getData = async ()=>
-    {
+    const getData = async () => {
       const docRef = await doc(db, "users", uid);
       const docSnap = await getDoc(docRef);
-      const {nick, pfpUrl} = docSnap.data();
-      setPfpUrl(pfpUrl);
-      setNick(nick);
-    }
-    if(uid) 
-    getData();
-  });
+      const { nick, pfpUrl } = await docSnap.data();
+      await setPfpUrl(pfpUrl);
+      await setNick(nick);
+    };
+    if (uid) getData();
+  }, [uid]);
 
   let nameClass = "";
-  if(boolShow) nameClass="divButtons";
-  else nameClass="hideAny"
-  
+  if (boolShow) nameClass = "divButtons";
+  else nameClass = "hideAny";
+
   return (
     <div className={nameClass}>
       {boolShow ? (
         uid != null ? (
-            <Fragment>
-              <div className="userInfo">
-                <img src={pfpUrl} alt={"Foto de " + nick}/>
-                <p>{nick}</p>
-              </div>
-              <ButtonAccess
-                functionToCall={logOut}
-                url="/"
-                auth={auth}
-                setUid={setUid}
-              >
-                Cerrar sesión
-              </ButtonAccess>
-            </Fragment>
+          <Fragment>
+            <div className="userInfo">
+              <img src={pfpUrl} alt={"Foto de " + nick} />
+              <p>{nick}</p>
+            </div>
+            <ButtonAccess
+              functionToCall={logOut}
+              url="/"
+              auth={auth}
+              setUid={setUid}
+            >
+              Cerrar sesión
+            </ButtonAccess>
+          </Fragment>
         ) : (
           <Fragment>
-            <ButtonAccess
-              url="/login"
-              auth={auth}
-              setUid={setUid}
-            >
+            <ButtonAccess url="/login" auth={auth} setUid={setUid}>
               Iniciar sesión
             </ButtonAccess>
-            <ButtonAccess
-              url="/signup"
-              auth={auth}
-              setUid={setUid}
-            >
+            <ButtonAccess url="/signup" auth={auth} setUid={setUid}>
               Registrarse
             </ButtonAccess>
           </Fragment>

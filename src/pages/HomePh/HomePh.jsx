@@ -5,6 +5,8 @@ import GradientBar from "../../components/GradientBar/GradientBar";
 import { Link } from "react-router-dom";
 import ButtonsAccount from "../../components/ButtonsAccount/ButtonsAccount";
 const HomePh = (props) => {
+  const { functionStart, setLoadingState } = props;
+  setLoadingState(false);
   const buildDiv = (item) => {
     return (
       <div key={item.key} className="cardInfo">
@@ -232,14 +234,15 @@ const HomePh = (props) => {
     },
   ];
 
-  const { functionStart } = props;
   useEffect(() => {
     functionStart(true);
   }, []);
 
   var newArray2 = placeHolderUser.forEach((arrayGame) => {
-    arrayGame.arrayPuntos.sort((a,b)=>parseFloat(b.puntaje)-parseFloat(a.puntaje));
-    });
+    arrayGame.arrayPuntos.sort(
+      (a, b) => parseFloat(b.puntaje) - parseFloat(a.puntaje)
+    );
+  });
 
   return (
     <Fragment>

@@ -12,9 +12,8 @@ import {
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
 const Games = (props) => {
-  const { functionStart } = props;
+  const { functionStart, setLoadingState } = props;
   const [gamesData, setGamesData] = useState([]);
-  
   const obtainGens = (item) => {
     const amount = item.genres.length - 1;
     let texto = "";
@@ -23,20 +22,21 @@ const Games = (props) => {
     });
     return texto;
   };
+
   const buildDiv = (item) => {
     return (
       <div key={item.key} className="cardInfo">
-        <Link to={"/game/"+item.id}>
-        <div className="pdDiv">
-          <div className="infoDiv">
-            <div className="divImg">
-              <img src={item.imgsrc} alt={"Imagen gráfica de " + item.name} />
+        <Link to={"/game/" + item.id}>
+          <div className="pdDiv">
+            <div className="infoDiv">
+              <div className="divImg">
+                <img src={item.imgsrc} alt={"Imagen gráfica de " + item.name} />
+              </div>
+              <h3>{item.name}</h3>
+              <p>{item.description}</p>
+              <h4>géneros: {obtainGens(item)}</h4>
             </div>
-            <h3>{item.name}</h3>
-            <p>{item.description}</p>
-            <h4>géneros: {obtainGens(item)}</h4>
           </div>
-        </div>
         </Link>
       </div>
     );
@@ -53,18 +53,18 @@ const Games = (props) => {
         arrayData.push(objData);
       });
       setGamesData(arrayData);
+      setLoadingState(false);
     };
+    setLoadingState(true);
     functionStart(true);
     getDataGames();
-  });
+  }, []);
   return (
     <Fragment>
       <GradientBar text="Juegos"></GradientBar>
       <div className="listDesign">
-            {gamesData.map((item) =>
-              buildDiv(item)
-            )}
-          </div>
+        {gamesData.map((item) => buildDiv(item))}
+      </div>
     </Fragment>
   );
 };

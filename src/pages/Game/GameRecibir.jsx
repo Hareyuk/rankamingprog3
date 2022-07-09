@@ -52,8 +52,8 @@ const Game = (props) => {
         <Fragment>
           <Unity unityContext={unityContext} />
           <div className="infoGamePage">
-              <img src={gamePic} alt={gameName}/>
-              <p>{gameDescription}</p>
+            <img src={gamePic} alt={gameName} />
+            <p>{gameDescription}</p>
           </div>
         </Fragment>
       ) : (

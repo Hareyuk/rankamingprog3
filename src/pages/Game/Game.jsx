@@ -3,7 +3,17 @@ import React, { useState, useEffect, Fragment } from "react";
 import Unity, { UnityContext } from "react-unity-webgl";
 import { RegisterExternalListener } from "react-unity-webgl";
 import { useParams, Link } from "react-router-dom";
-import {limitToLast, doc, getDoc, updateDoc, collection, getDocs, setDoc, query, orderBy} from "firebase/firestore";
+import {
+  limitToLast,
+  doc,
+  getDoc,
+  updateDoc,
+  collection,
+  getDocs,
+  setDoc,
+  query,
+  orderBy,
+} from "firebase/firestore";
 import { db } from "../../firebaseconfig";
 const Game = (props) => {
   const [gamePic, setGPic] = useState("");
@@ -35,96 +45,87 @@ const Game = (props) => {
     loaderUrl: `/games/${idGame}/Build/${idGame}.loader.js`,
     dataUrl: `/games/${idGame}/Build/${idGame}.data`,
     frameworkUrl: `/games/${idGame}/Build/${idGame}.framework.js`,
-    codeUrl: `/games/${idGame}/Build/${idGame}.wasm`
+    codeUrl: `/games/${idGame}/Build/${idGame}.wasm`,
   });
 
   //Receive Points From Game
-  useEffect(function()
-  {
-    unityContext.on("SendPoints", function(score)
-    {
+  useEffect(function () {
+    unityContext.on("SendPoints", function (score) {
       setScorePlayer(score);
     });
   }, []);
 
   //Attempt to update
-  const updateDataRanking= async ()=>
-  {
+  const updateDataRanking = async () => {
     console.log("Actualizar data");
-    const q = await query(collection(db, "rankings", idGame, "users"), orderBy("score"));
+    const q = await query(
+      collection(db, "rankings", idGame, "users"),
+      orderBy("score")
+    );
     const querySnapshot = await getDocs(q);
-    let arrayGameData = {id: idGame, name: gameName, playersScores: []};
+    let arrayGameData = { id: idGame, name: gameName, playersScores: [] };
     await querySnapshot.forEach((doc) => {
       let objData = doc.data();
       objData.id = doc.id;
       arrayGameData.playersScores.push(objData);
     });
     setRankingData(arrayGameData);
-  }
+  };
   updateDataRanking();
-  
 
   //Update Score Player in Firebase
-  useEffect(function()
-  {
-    const updateScorePlayer = async ()=>
-    {
-      await updateDoc(doc(db, "rankings", idGame, "users", uid), {
-        score: -(scorePlayer),
-        date: -(Date.now())
-      });
-      updateDataRanking();
-    }
-
-    const updateDataGame = async()=>
-    {
-      //Get subcollection
-      const docRef = doc(db, "rankings", idGame);
-      const colRef = collection(docRef, "users");
-      //Get datas
-      const querySnapshot = await getDocs(colRef);
-      let foundUser = false;
-      querySnapshot.forEach((doc) => 
-      {
-        if(doc.id === uid) foundUser = true;
-        const scoreWritten = doc.data().score;
-        const scoreNumberWritten = -parseInt(scoreWritten);
-        if(scorePlayer > scoreNumberWritten)
-        {
-          //UpdateNewScore
-          updateScorePlayer();
-        }
-      });
-      if(!foundUser)
-      {
-        //The score doesn't exist, add data
-        const newData = {score: -(scorePlayer), date: Date.now()};
-        await setDoc(doc(db, "rankings", idGame, "users", uid), newData);
+  useEffect(
+    function () {
+      const updateScorePlayer = async () => {
+        await updateDoc(doc(db, "rankings", idGame, "users", uid), {
+          score: -scorePlayer,
+          date: -Date.now(),
+        });
         updateDataRanking();
+      };
+
+      const updateDataGame = async () => {
+        //Get subcollection
+        const docRef = doc(db, "rankings", idGame);
+        const colRef = collection(docRef, "users");
+        //Get datas
+        const querySnapshot = await getDocs(colRef);
+        let foundUser = false;
+        querySnapshot.forEach((doc) => {
+          if (doc.id === uid) foundUser = true;
+          const scoreWritten = doc.data().score;
+          const scoreNumberWritten = -parseInt(scoreWritten);
+          if (scorePlayer > scoreNumberWritten) {
+            //UpdateNewScore
+            updateScorePlayer();
+          }
+        });
+        if (!foundUser) {
+          //The score doesn't exist, add data
+          const newData = { score: -scorePlayer, date: -Date.now() };
+          await setDoc(doc(db, "rankings", idGame, "users", uid), newData);
+          updateDataRanking();
+        }
+      };
+      if (scorePlayer != 0) {
+        updateDataGame();
       }
-    }
-    if(scorePlayer != 0)
-    {
-      updateDataGame();
-    }
-  }, [scorePlayer]);
+    },
+    [scorePlayer]
+  );
 
   //Get all data users
-  useState(()=>
-  {
+  useState(() => {
     let arrayUsers = [];
-    const getAllDataUsers= async ()=>
-    {
+    const getAllDataUsers = async () => {
       const querySnapshot = await getDocs(collection(db, "users"));
-      querySnapshot.forEach((doc)=>
-      {
+      querySnapshot.forEach((doc) => {
         arrayUsers[doc.id] = doc.data();
-      })
+      });
       setUserDataFull(arrayUsers);
-    }
+    };
     getAllDataUsers();
   });
-
 
   //DIv Rank
   const buildDivRank = () => {
@@ -132,27 +133,31 @@ const Game = (props) => {
       <div key={idGame} className="cardInfo cardRank">
         <h3>Ranking de {gameName}</h3>
         <div className="rankList">
-          {
-            !rankingData.playersScores.length ? <p style={{textAlign: "center"}}>Aún no hay datos para este minijuego.</p> : ""
-          }
+          {!rankingData.playersScores.length ? (
+            <p style={{ textAlign: "center" }}>
+              Aún no hay datos para este minijuego.
+            </p>
+          ) : (
+            ""
+          )}
           {rankingData.playersScores.map((item, i) => {
-            const {pfpUrl, nick} = userDataFull[item.id];
+            const { pfpUrl, nick } = userDataFull[item.id];
             let className = "userRank";
-            if(item.id == uid) className+=" ownerScore"; 
+            if (item.id == uid) className += " ownerScore";
             return (
               <Link to={"/profile/" + item.id}>
-              <div key={item.id} className={className}>
-                <div className="borderPic">
-                  <div></div>
-                  <img src={pfpUrl} alt={nick} />
+                <div key={item.id} className={className}>
+                  <div className="borderPic">
+                    <div></div>
+                    <img src={pfpUrl} alt={nick} />
+                  </div>
+                  <div className="boxTextsRank">
+                    <h4>
+                      {i + 1} - {nick}
+                    </h4>
+                    <p>{-item.score}</p>
+                  </div>
                 </div>
-                <div className="boxTextsRank">
-                  <h4>
-                    {i + 1} - {nick}
-                  </h4>
-                  <p>{-item.score}</p>
-                </div>
-              </div>
               </Link>
             );
           })}
@@ -160,23 +165,27 @@ const Game = (props) => {
       </div>
     );
   };
-  
+
   return (
     <div className="divFlex">
-      {uid ? loadingGame ? "Cargando..." : (
-        <Fragment>
-          <div className="gameDiv">
-            <Unity unityContext={unityContext} />
-          </div>
-          <div className="rankSection">
-          {rankingData ? buildDivRank() : ""}
-          </div>
-          <div className="infoGamePage">
+      {uid ? (
+        loadingGame ? (
+          "Cargando..."
+        ) : (
+          <Fragment>
+            <div className="gameDiv">
+              <Unity unityContext={unityContext} />
+            </div>
+            <div className="rankSection">
+              {rankingData ? buildDivRank() : ""}
+            </div>
+            <div className="infoGamePage">
               <h1>{gameName}</h1>
-              <img src={gamePic} alt={gameName}/>
+              <img src={gamePic} alt={gameName} />
               <p>{gameDescription}</p>
-          </div>
-        </Fragment>
+            </div>
+          </Fragment>
+        )
       ) : (
         <h2 className="warningNotLogged">
           Lo sentimos, para acceder al juego debe iniciar sesión.

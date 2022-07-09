@@ -3,11 +3,11 @@ import { auth, createUserWithEmailAndPassword } from "../../firebaseconfig";
 import { Link, useNavigate } from "react-router-dom";
 import GradientBar from "../../components/GradientBar/GradientBar";
 import { getAuth } from "firebase/auth";
-import { doc, setDoc, addDoc, collection, } from "firebase/firestore";
+import { doc, setDoc, addDoc, collection } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { db } from "../../firebaseconfig";
 const SignUp = (props) => {
-  const { functionStart, uid } = props;
+  const { functionStart, uid, setLoadingState } = props;
   const navigate = useNavigate();
   const [userMail, setUserMail] = useState("");
   const [userPass, setUserPass] = useState("");
@@ -16,11 +16,12 @@ const SignUp = (props) => {
   const [msgError, setMsgError] = useState(null);
   const [updateData, setUpdateData] = useState(false);
   useEffect(() => {
+    setLoadingState(false);
     functionStart(false);
     if (uid) {
       navigate("/");
     }
-  }, []);
+  }, [uid]);
 
   const storage = getStorage();
   useEffect(() => {
@@ -39,7 +40,7 @@ const SignUp = (props) => {
         phrase: "¡Demuestra al mundo el poder del rankeo!",
         pfpUrl: urlPfp,
         insignias: {},
-        clicks: 0
+        clicks: 0,
       });
       setUpdateData(false);
       navigate("/login");
@@ -51,14 +52,12 @@ const SignUp = (props) => {
 
   const signupUser = (e) => {
     e.preventDefault();
-    if(userNick != "")
-    {
-      if(userPassConfirm != userPass)
-      {
-        setMsgError("Las contraseñas no coinciden.")
-      }
-      else
-      {
+    setLoadingState(true);
+    if (userNick != "") {
+      if (userPassConfirm != userPass) {
+        setMsgError("Las contraseñas no coinciden.");
+        setLoadingState(false);
+      } else {
         try {
           createUserWithEmailAndPassword(auth, userMail, userPass)
             .then((r) => {
@@ -69,30 +68,33 @@ const SignUp = (props) => {
               //auth/invalid-email
               if (e.code == "auth/invalid-email") {
                 setMsgError("Formato de email inválido");
+                setLoadingState(false);
               }
               //auth/weak-password
               else if (e.code == "auth/weak-password") {
                 setMsgError("Contraseña débil, debe ser al menos 6 caracteres");
-              }
-              else if (e.code == "auth/email-already-in-use") {
+                setLoadingState(false);
+              } else if (e.code == "auth/email-already-in-use") {
                 setMsgError("Email ya utilizado");
-              }
-              else if(userMail.trim() == "" || userPass == "")
-              {
-                setMsgError("Los datos están incompletos, complételo por favor.")
+                setLoadingState(false);
+              } else if (userMail.trim() == "" || userPass == "") {
+                setMsgError(
+                  "Los datos están incompletos, complételo por favor."
+                );
+                setLoadingState(false);
               }
               console.error("Error Firebase: ", e);
             });
         } catch (err) {
           console.log(err);
+          setMsgError("Ha ocurrido un error, por favor, intente más tarde.");
+          setLoadingState(false);
         }
       }
+    } else {
+      setMsgError("Los datos están incompletos, complételo por favor.");
+      setLoadingState(false);
     }
-    else
-    {
-      setMsgError("Los datos están incompletos, complételo por favor.")
-    }
-    
   };
 
   return (
@@ -143,9 +145,7 @@ const SignUp = (props) => {
           value={userPassConfirm}
         />
         <input className="form-button" value="Registrarse" type="submit" />
-        {
-            msgError ? <label className='errorAuth'>{msgError}</label>:""
-        }
+        {msgError ? <label className="errorAuth">{msgError}</label> : ""}
         <Link to="/login">
           <p>¿Ya tienes una cuenta? ¡Ingrese aquí para iniciar sesión!</p>
         </Link>

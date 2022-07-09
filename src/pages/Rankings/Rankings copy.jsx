@@ -19,39 +19,16 @@ const Rankings = (props) => {
   }, []);
 
   useEffect(() => {
-    if (gamesData.length > 0) {
-      gamesData.map((item) => getDataRankItem(item));
-      setLoadingState(false);
-    }
+    (async () => {
+      if (gamesData.length > 0) {
+        await getDataRanks(gamesData).then((result) => setRankingData(result));
+      }
+    })();
   }, [gamesData]);
 
-  const getDataRankItem = (item) => {
-    const getData = async () => {
-      const q = await query(
-        collection(db, "rankings", item.id, "users"),
-        orderBy("score")
-      );
-      const qSnapshot = await getDocs(q);
-      let arrGameData = { id: item.id, name: item.name, playersScores: [] };
-      await qSnapshot.forEach((doc) => {
-        let objData = doc.data();
-        objData.id = doc.id;
-        arrGameData.playersScores.push(objData);
-      });
-      return arrGameData;
-    };
-    getData().then((item) => {
-      //Para evitar duplicados erróneos
-      let alreadyExist = false;
-      rankingData.forEach((objArr) => {
-        if (objArr.id === item.id) {
-          alreadyExist = true;
-        }
-      });
-      if (alreadyExist === false)
-        setRankingData((prevState) => [...prevState, item]);
-    });
-  };
+  useEffect(() => {
+    console.log(rankingData);
+  }, [rankingData]);
 
   const getDataGames = async () => {
     //Games
@@ -62,6 +39,27 @@ const Rankings = (props) => {
       let objData = doc.data();
       objData.id = doc.id;
       arrayData.push(objData);
+    });
+    //await getDataRanks(arrayData);
+    return arrayData;
+  };
+
+  const getDataRanks = async (games) => {
+    //Ranks
+    let arrayData = [];
+    await games.map(async (item, index) => {
+      const q = await query(
+        collection(db, "rankings", item.id, "users"),
+        orderBy("score")
+      );
+      const querySnapshot = await getDocs(q);
+      let arrayGameData = { id: item.id, name: item.name, playersScores: [] };
+      await querySnapshot.forEach((doc) => {
+        let objData = doc.data();
+        objData.id = doc.id;
+        arrayGameData.playersScores.push(objData);
+      });
+      arrayData.push(arrayGameData);
     });
     return arrayData;
   };
@@ -75,6 +73,24 @@ const Rankings = (props) => {
     });
     setUserDataFull(arrayUsers);
   };
+
+  /* 
+  const getRankingsData = async ()=>
+  {
+    let arrayData = [];
+    await gamesData.map(async (item, index)=>{
+      const q = await query(collection(db, "rankings", item.id, "users"), orderBy("score"));
+      const querySnapshot = await getDocs(q);
+      let arrayGameData = {id: item.id, name: item.name, playersScores: []};
+      await querySnapshot.forEach((doc) => {
+        let objData = doc.data();
+        objData.id = doc.id;
+        arrayGameData.playersScores.push(objData);
+      });
+      arrayData.push(arrayGameData);
+    });
+    setRankingData(arrayData);
+  } */
 
   const buildDivRank = (item) => {
     return (
@@ -118,7 +134,9 @@ const Rankings = (props) => {
     <Fragment>
       <GradientBar text="Rankings"></GradientBar>
       <div className="listDesign">
-        {rankingData.map((item) => buildDivRank(item))}
+        {rankingData.map((item) => {
+          return buildDivRank(item);
+        })}
       </div>
     </Fragment>
   );

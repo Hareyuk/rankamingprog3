@@ -1,186 +1,162 @@
-header
-{
-    max-width: 110px;
+header {
+  max-width: 110px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+header img {
+  width: 65%;
+  display: block;
+  position: absolute;
+  transform: translate(-50%);
+  left: 50%;
+  bottom: 10px;
+}
+
+.lineGlow {
+  width: 10px;
+  height: 100%;
+  animation-name: lineGlow;
+  animation-iteration-count: infinite;
+  animation-duration: 4s;
+  background: repeating-linear-gradient(
+    245deg,
+    #6ad7de,
+    transparent,
+    #6ad7de 100%
+  );
+  animation-timing-function: linear;
+  display: inline-block;
+}
+
+.header-menu {
+  display: inline-block;
+  width: calc(110px - 10px);
+  margin: 0 auto;
+  position: absolute;
+  height: 100%;
+}
+
+.menu-mobile {
+  display: none;
+}
+
+@keyframes lineGlow {
+  0% {
+    background-position-y: 0vh;
+  }
+  100% {
+    background-position-y: 100vh;
+  }
+}
+
+@keyframes lineGlowHor {
+  0% {
+    background-position-x: 0vw;
+  }
+  100% {
+    background-position-x: 100vw;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  header img {
+    width: 40%;
+  }
+}
+@media screen and (max-height: 580px) {
+  header img {
+    display: none;
+  }
+}
+
+@media screen and (orientation: portrait) and (max-width: 1200px) {
+  header img {
+    width: 40%;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-height: 450px) {
+  header {
+    width: 90px;
+  }
+  .lineGlow {
+    width: 5px;
+  }
+
+  .header-menu {
+    width: calc(80px - 10px);
+  }
+
+  .contentBoxBtn,
+  .borderGra {
+    width: 55px !important;
+    height: 55px !important;
+  }
+
+  .contentBox {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  i {
+    font-size: 1.8em !important;
+  }
+}
+
+@media screen and (orientation: portrait) and (max-width: 450px) {
+  .menu-mobile {
+    display: inline-block;
     width: 100%;
     height: 100%;
-    overflow: hidden;
-}
+  }
 
-header img
-{
-    width: 65%;
-    display: block;
-    position: absolute;
-    transform: translate(-50%);
-    left: 50%;
-    bottom: 10px;
-}
-
-.lineGlow
-{
-    width: 10px;
+  .header-menu {
+    display: flex;
+    width: 100%;
     height: 100%;
-    animation-name: lineGlow;
-    animation-iteration-count: infinite;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+  }
+
+  .lineGlow {
+    animation-name: lineGlowHor;
+    width: 100%;
     animation-duration: 4s;
-    background: repeating-linear-gradient(245deg, #6AD7DE, transparent, #6AD7DE 100%);
-    animation-timing-function: linear;
-    display: inline-block;
-}
-
-.header-menu
-{
-    display: inline-block;
-    width: calc(110px - 10px);
-    margin: 0 auto;
+    height: 4px;
     position: absolute;
-    height:100%;
-}
+    bottom: 0px;
+  }
 
-.menu-mobile
-{
+  .contentBoxBtn,
+  .borderGra {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .contentBoxBtn {
+    display: inline-block;
+    margin: 0.5em 0 0 0 !important;
+  }
+
+  .contentBox {
+    width: 55px !important;
+    height: 55px !important;
+  }
+
+  i {
+    font-size: 1.8em !important;
+  }
+  header {
+    width: 100%;
+    height: 80px;
+    max-width: 100%;
+    position: absolute;
+  }
+
+  .menu-web {
     display: none;
-}
-
-@keyframes lineGlow
-{
-    0%
-    {
-        background-position-y: 0vh;
-    }
-    100%
-    {
-        background-position-y: 100vh;
-    }
-}
-
-@keyframes lineGlowHor
-{
-    0%
-    {
-        background-position-x: 0vw;
-    }
-    100%
-    {
-        background-position-x: 100vw;
-    }
-}
-
-@media screen and (max-width: 1200px){
-   header img
-   {
-       width: 40%;
-   }
-}
-@media screen and (max-height: 580px){
-    header img
-    {
-        display: none;
-    }
- }
- 
- @media screen and (orientation: portrait) and (max-width: 1200px){
-   header img
-   {
-       width: 40%;
-   }
-}
- 
-@media screen and (orientation: landscape) and (max-height: 450px)
-{
-    header
-    {
-        width: 90px;
-    }
-    .lineGlow
-    {
-        width: 5px;
-    }
-
-    .header-menu
-    {
-        width: calc(80px - 10px);
-    }
-
-    .contentBoxBtn, .borderGra
-    {
-        width: 55px !important;
-        height: 55px !important;
-    }
-    
-    .contentBox
-    {
-        width: 50px !important;
-        height: 50px !important;
-    }
-
-    i
-    {
-        font-size: 1.8em !important;
-    }
- }
-
- @media screen and (orientation: portrait) and (max-width: 450px)
-{
-    .menu-mobile
-    {
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-    }
-
-    .header-menu
-    {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: space-evenly;
-    }
-
-    .lineGlow
-    {
-        animation-name: lineGlowHor;
-        width: 100%;
-        animation-duration: 4s;
-        height: 4px;
-        position: absolute;
-        bottom: 0px;
-    }
-
-    .contentBoxBtn, .borderGra
-    {
-        width: 60px !important;
-        height: 60px !important;
-    }
-
-    .contentBoxBtn
-    {
-        display: inline-block;
-        margin: 0.5em 0 0 0 !important;
-    }
-    
-    .contentBox
-    {
-        width: 55px !important;
-        height: 55px !important;
-    }
-
-    i
-    {
-        font-size: 1.8em !important;
-    }
-    header
-    {
-        width: 100%;
-        height: 80px;
-        max-width: 100%;
-        position: absolute;
-    }
-
-    .menu-web
-    {
-        display: none;
-    }
+  }
 }

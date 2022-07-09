@@ -1,91 +1,73 @@
-canvas
-{
-    max-width: 500px;
-    max-height: 500px;
+canvas {
+  max-width: 500px;
+  max-height: 500px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: block;
+  aspect-ratio: 1/1;
+}
+
+.divFlex > div > .cardRank {
+  width: 90% !important;
+  height: 500px !important;
+}
+.divFlex {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 4em;
+}
+
+.divFlex > div {
+  width: 500px;
+}
+
+.infoGamePage img {
+  width: 100%;
+}
+
+@media screen and (orientation: landscape) and (max-height: 450px) {
+  .divFlex > div {
     width: 100%;
+  }
+  .divFlex {
+    margin-top: 0em;
+  }
+
+  .divFlex > div {
+    width: 50%;
+  }
+
+  .divFlex > div:last-child {
+    width: 100%;
+    text-align: center;
+  }
+
+  .divFlex > div > div.cardRank {
+    width: 100% !important;
     height: 100%;
-    margin: 0 auto;
-    display: block;
-    aspect-ratio: 1/1;
+  }
+
+  .divFlex > div:last-child h1 {
+    text-align: center;
+  }
 }
 
-.divFlex > div > .cardRank
-{
-    width: 90% !important;
-    height: 500px !important;
-}
-.divFlex
-{
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 4em;
-}
-
-.divFlex > div
-{
-    width: 500px;
-}
-
-.infoGamePage img
-{
+@media screen and (orientation: portrait) and (max-width: 450px) {
+  .divFlex > div {
     width: 100%;
-}
+  }
 
+  .divFlex {
+    margin-top: 1em;
+  }
 
-@media screen and (orientation: landscape) and (max-height: 450px)
-{
-    .divFlex > div
-    {
-        width: 100%;
-    }
-    .divFlex
-    {
-        margin-top: 0em;
-    }
+  .infoGamePage {
+    padding-bottom: 2em;
+  }
 
-    .divFlex > div
-    {
-        width: 50%;
-    }
-    
-    .divFlex > div:last-child
-    {
-        width: 100%;
-        text-align: center;
-    }
-
-    .divFlex > div > div.cardRank
-    {
-        width: 100% !important;
-        height: 100%;
-    }
-
-    .divFlex > div:last-child h1
-    {
-        text-align: center;
-    }
-}
-
-@media screen and (orientation: portrait) and (max-width: 450px)
-{
-    .divFlex > div
-    {
-        width: 100%;
-    }
-    
-    .divFlex
-    {
-        margin-top: 1em;
-    }
-
-    .infoGamePage
-    {
-        padding-bottom: 2em;
-    }
-
-    .divFlex > div > div.cardRank
-    {
-        margin: 1em auto !important;
-        width: 100% !important;
-    }
+  .divFlex > div > div.cardRank {
+    margin: 1em auto !important;
+    width: 100% !important;
+  }
 }

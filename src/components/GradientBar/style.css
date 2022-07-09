@@ -1,43 +1,40 @@
-.gradientBar div
-{
-    width: 650px;
-    height: 55px;
-    clip-path: polygon(0 0, 83% 0, 100% 100%, 0% 100%);
-    border-radius: 0.5em;
-    background: linear-gradient(90deg, rgba(30, 26, 227, 0.843), rgba(0, 163, 255, 0));
-    mix-blend-mode: color-dodge;
+.gradientBar div {
+  width: 650px;
+  height: 55px;
+  clip-path: polygon(0 0, 83% 0, 100% 100%, 0% 100%);
+  border-radius: 0.5em;
+  background: linear-gradient(
+    90deg,
+    rgba(30, 26, 227, 0.843),
+    rgba(0, 163, 255, 0)
+  );
+  mix-blend-mode: color-dodge;
 }
 
-span
-{
-    font-size: 40px;
-    font-family: Goldman;
-    color: rgba(122, 244, 255, 1);
-    padding: 0.1em 0.2em 0em 0.2em;
+span {
+  font-size: 40px;
+  font-family: Goldman;
+  color: rgba(122, 244, 255, 1);
+  padding: 0.1em 0.2em 0em 0.2em;
+  position: absolute;
+  top: 0;
+}
+
+.gradientBar {
+  position: relative;
+}
+
+@media screen and (orientation: portrait) and (max-width: 450px) {
+  .gradientBar {
+    overflow: hidden;
+  }
+  .gradientBar div {
     position: absolute;
-    top: 0;
-}
+    border-radius: 0;
+  }
 
-.gradientBar
-{
+  .gradientBar span {
     position: relative;
-}
-
-@media screen and (orientation: portrait) and (max-width: 450px)
-{
-    .gradientBar
-    {
-        overflow: hidden;
-    }
-    .gradientBar div
-    {
-        position: absolute;
-        border-radius: 0;
-    }
-
-    .gradientBar span
-    {
-        position: relative;
-        padding-left: 0.5em;
-    }
+    padding-left: 0.5em;
+  }
 }

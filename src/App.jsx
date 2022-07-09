@@ -19,13 +19,14 @@ import { db, auth } from "./firebaseconfig";
 import Unity, { UnityContext } from "react-unity-webgl";
 import ButtonsAccount from "./components/ButtonsAccount/ButtonsAccount";
 import HomePh from "./pages/HomePh/HomePh";
-//Context
 
 function App() {
   //Context
   //Seguir leyendo desde https://reactjs.org/docs/context.html#reactcreatecontext en app.js
+  const [loading, setLoadingState] = useState(true);
   const [uid, setUid] = useState(null);
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -47,14 +48,6 @@ function App() {
   };
 
   const [boolShow, setBoolShow] = useState(false);
-  /* const setBoolShowTrue=()=>
-  {
-    setBoolShow(true);
-  }
-  const setBoolShowFalse=()=>
-  {
-    setBoolShow(false);
-  }*/
   const setBoolShowValue = (value) => {
     setBoolShow(value);
   };
@@ -65,6 +58,16 @@ function App() {
         <div className="organize">
           <Header uid={uid}></Header>
           <div className="divDesign"></div>
+
+          {loading ? (
+            <div className="loadingBox">
+              <div>
+                <div className="lds-dual-ring"></div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
           <main>
             <ButtonsAccount
               setUid={(value) => {
@@ -78,6 +81,8 @@ function App() {
                 path="/"
                 element={
                   <Home
+                    uid={uid}
+                    setLoadingState={(state) => setLoadingState(state)}
                     functionStart={(value) => {
                       setBoolShowValue(value);
                     }}
@@ -88,6 +93,7 @@ function App() {
                 path="/HomePh"
                 element={
                   <HomePh
+                    setLoadingState={(state) => setLoadingState(state)}
                     functionStart={(value) => {
                       setBoolShowValue(value);
                     }}
@@ -98,6 +104,7 @@ function App() {
                 path="/about"
                 element={
                   <About
+                    setLoadingState={(state) => setLoadingState(state)}
                     functionStart={(value) => {
                       setBoolShowValue(value);
                     }}
@@ -108,6 +115,7 @@ function App() {
                 path="/login"
                 element={
                   <Login
+                    setLoadingState={(state) => setLoadingState(state)}
                     uid={uid}
                     functionStart={(value) => {
                       setBoolShowValue(value);
@@ -119,6 +127,7 @@ function App() {
                 path="/signup"
                 element={
                   <SignUp
+                    setLoadingState={(state) => setLoadingState(state)}
                     uid={uid}
                     functionStart={(value) => {
                       setBoolShowValue(value);
@@ -130,6 +139,7 @@ function App() {
                 path="/game/:id"
                 element={
                   <Game
+                    setLoadingState={(state) => setLoadingState(state)}
                     uid={uid}
                     functionStart={(value) => {
                       setBoolShowValue(value);
@@ -141,6 +151,7 @@ function App() {
                 path="/games"
                 element={
                   <Games
+                    setLoadingState={(state) => setLoadingState(state)}
                     functionStart={(value) => {
                       setBoolShowValue(value);
                     }}
@@ -151,6 +162,8 @@ function App() {
                 path="/rankings"
                 element={
                   <Rankings
+                    uid={uid}
+                    setLoadingState={(state) => setLoadingState(state)}
                     functionStart={(value) => {
                       setBoolShowValue(value);
                     }}
@@ -161,6 +174,7 @@ function App() {
                 path="/profile/:id"
                 element={
                   <Profile
+                    setLoadingState={(state) => setLoadingState(state)}
                     uid={uid}
                     functionStart={(value) => {
                       setBoolShowValue(value);
@@ -172,6 +186,7 @@ function App() {
                 path="/surprise/"
                 element={
                   <Surprise
+                    setLoadingState={(state) => setLoadingState(state)}
                     uid={uid}
                     functionStart={(value) => {
                       setBoolShowValue(value);

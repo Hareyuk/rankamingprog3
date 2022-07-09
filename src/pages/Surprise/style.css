@@ -1,16 +1,13 @@
-.clicker p
-{
-    font-size: 1.5em;
-    font-family: Glory;
+.clicker p {
+  font-size: 1.5em;
+  font-family: Glory;
 }
 
-.clicker
-{
-    min-height: 350px;
+.clicker {
+  min-height: 350px;
 }
 
-iframe
-{
+iframe {
   height: 542px;
   width: 500px;
 }
@@ -18,18 +15,18 @@ iframe
 /* CSS  TOOK FROM https://getcssscan.com/css-buttons-examples*/
 .button-19 {
   appearance: button;
-  background-color: #1899D6;
+  background-color: #1899d6;
   border: solid transparent;
   border-radius: 16px;
   border-width: 0 0 6px;
   box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  font-family: din-round,sans-serif;
+  font-family: din-round, sans-serif;
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: .8px;
+  letter-spacing: 0.8px;
   line-height: 20px;
   margin: 0;
   outline: none;
@@ -39,7 +36,7 @@ iframe
   text-transform: uppercase;
   touch-action: manipulation;
   transform: translateZ(0);
-  transition: filter .2s;
+  transition: filter 0.2s;
   user-select: none;
   -webkit-user-select: none;
   vertical-align: middle;
@@ -49,15 +46,14 @@ iframe
   transition: 0.2s;
 }
 
-.button-19:active
-{
-    border-width: 0 0 3px;
-    top: 3px;
+.button-19:active {
+  border-width: 0 0 3px;
+  top: 3px;
 }
 
 .button-19:after {
   background-clip: padding-box;
-  background-color: #1CB0F6;
+  background-color: #1cb0f6;
   border: solid transparent;
   border-radius: 16px;
   border-width: 0 0 4px;

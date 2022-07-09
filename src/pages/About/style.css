@@ -1,28 +1,27 @@
-.gradientBar
-{
-    margin-top: 2em;
+.gradientBar {
+  margin-top: 2em;
 }
 
-p-about
-{
-    font-size: 1.2em;
-    width: 50%;
+.p-about p{
+  font-size: 1.2em;
+  width: 50% !important;
 }
 
-@media screen and (orientation: landscape) and (max-height: 450px)
+.p-about p:first-child
 {
-    p
-    {
-        width: 90%;
-        margin: 0 auto;
-    }
+  font-size: 1em;
 }
 
-@media screen and (orientation: portrait) and (max-width: 450px)
-{
-    p
-    {
-        width: 90%;
-        margin: 0 auto;
-    }
+@media screen and (orientation: landscape) and (max-height: 450px) {
+  p {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (orientation: portrait) and (max-width: 450px) {
+  p {
+    width: 90%;
+    margin: 0 auto;
+  }
 }

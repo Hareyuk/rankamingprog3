@@ -1,7 +1,6 @@
-.infoUser
-{
-    display: flex;
-    flex-wrap: wrap;
+.infoUser {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* .boxImg
@@ -14,120 +13,103 @@
     background: #00D1FF;
 } */
 
-.boxImg
-{
-    width: 300px;
+.boxImg {
+  width: 300px;
 }
 
-.boxImg img
-{
-    border: #00D1FF 10px solid;
-    width: 100%;/* 
+.boxImg img {
+  border: #00d1ff 10px solid;
+  width: 100%; /* 
     height: 95%; */
-    border-radius: 100%;/* 
+  border-radius: 100%; /* 
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%); */
 }
 
-.infoUser div:last-child
-{
-    padding-left: 3em;
-    padding-bottom: 5em;
-    align-self: center;
+.infoUser div:last-child {
+  padding-left: 3em;
+  padding-bottom: 5em;
+  align-self: center;
 }
 
-p, h3
-{
-    color: rgba(106, 215, 222, 1);
+p,
+h3 {
+  color: rgba(106, 215, 222, 1);
 }
 
-.rankingsList, .insignias
-{
-    padding-left: calc(300px + 3em);
+.rankingsList,
+.insignias {
+  padding-left: calc(300px + 3em);
 }
 
-form.editProfile
-{
-    display: flex;
-    max-width: 80% !important;
-    flex-direction: row;
-    
+form.editProfile {
+  display: flex;
+  max-width: 80% !important;
+  flex-direction: row;
 }
 
-form.editProfile > div
-{
-    width: 40%;
+form.editProfile > div {
+  width: 40%;
 }
 
-form.editProfile > div:first-child
-{
-    margin-right: 2em;
+form.editProfile > div:first-child {
+  margin-right: 2em;
 }
 
-form.editProfile > div:first-child label
-{
-    display: block;
+form.editProfile > div:first-child label {
+  display: block;
 }
 
-.class-crop
-{
-    z-index: 24;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+.class-crop {
+  z-index: 24;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.pfpUser
-{
-    max-width: 500px;
-    width: 100%;
+.pfpUser {
+  max-width: 500px;
+  width: 100%;
 }
 
-.class-crop button
-{
-    z-index: 25;
-    position: absolute;
-    top: calc(50% - 300px);
-    left: 50%;
-    transform: translate(-50%, -50%);
+.class-crop button {
+  z-index: 25;
+  position: absolute;
+  top: calc(50% - 300px);
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.btn-crop-ready
-{
+.btn-crop-ready {
   padding: 1em;
   width: 500px;
-  color:rgba(106, 215, 222, 1)
+  color: rgba(106, 215, 222, 1);
 }
 
-.btn-crop-ready:hover
-{
-  color:rgba(0, 16, 255, 0.6);
+.btn-crop-ready:hover {
+  color: rgba(0, 16, 255, 0.6);
   background-color: rgba(106, 215, 222, 1);
   border-color: rgba(106, 215, 222, 1);
 }
 
-@media screen and (orientation: landscape) and (max-height: 450px)
-{
-    .btn-crop-ready
-    {
-        top: 50% !important;
-        right: 0.5em !important;
-        left: unset !important;
-        position: fixed !important;
-        transform: unset !important;
-        width: 100px !important;
-    }
+@media screen and (orientation: landscape) and (max-height: 450px) {
+  .btn-crop-ready {
+    top: 50% !important;
+    right: 0.5em !important;
+    left: unset !important;
+    position: fixed !important;
+    transform: unset !important;
+    width: 100px !important;
+  }
 }
 
-@media screen and (orientation: portrait) and (max-width: 450px)
-{
-    .btn-crop-ready
-    {
-        font-weight: bold;
-        width: 80%;
-    }
+@media screen and (orientation: portrait) and (max-width: 450px) {
+  .btn-crop-ready {
+    font-weight: bold;
+    width: 80%;
+  }
 }

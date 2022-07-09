@@ -43,7 +43,7 @@ const BackgroundD = () => {
   return (
     <div className="background">
       {arrayCircles.map((item, i) => (
-        <div key={"b"+i} className={item.class}>
+        <div key={"b" + i} className={item.class}>
           <div
             className="circle"
             style={{
