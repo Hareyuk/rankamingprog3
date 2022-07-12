@@ -26,16 +26,20 @@ canvas {
   width: 100%;
 }
 
+.rankSection > div > .rankList
+{
+  height: 435px !important;
+}
+
 @media screen and (orientation: landscape) and (max-height: 450px) {
-  .divFlex > div {
-    width: 100%;
-  }
   .divFlex {
     margin-top: 0em;
   }
 
   .divFlex > div {
-    width: 50%;
+    width: 45%;
+    height: 100%;
+    margin: 0 auto;
   }
 
   .divFlex > div:last-child {
@@ -48,8 +52,24 @@ canvas {
     height: 100%;
   }
 
+  .rankSection > div > .rankList
+  {
+    height: 330px !important;
+  }
+
   .divFlex > div:last-child h1 {
     text-align: center;
+  }
+
+  .infoGamePage img {
+    width: 45%;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .infoGamePage p
+  {
+    display: inline-block;
+    width: 45%;
   }
 }
 

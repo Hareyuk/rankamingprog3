@@ -20,7 +20,7 @@ const Game = (props) => {
   const [gameName, setGName] = useState("");
   const [gameDescription, setGDescr] = useState("");
   const [scorePlayer, setScorePlayer] = useState(0);
-  const { functionStart, uid } = props;
+  const { functionStart, uid, setLoadingState} = props;
   const { id: idGame } = useParams();
   const [loadingGame, setLoadingGame] = useState(true);
   const [userDataFull, setUserDataFull] = useState([]);
@@ -53,11 +53,12 @@ const Game = (props) => {
     unityContext.on("SendPoints", function (score) {
       setScorePlayer(score);
     });
+    setLoadingState(false);
+    updateDataRanking();
   }, []);
 
   //Attempt to update
   const updateDataRanking = async () => {
-    console.log("Actualizar data");
     const q = await query(
       collection(db, "rankings", idGame, "users"),
       orderBy("score")
@@ -71,48 +72,47 @@ const Game = (props) => {
     });
     setRankingData(arrayGameData);
   };
-  updateDataRanking();
+
+  const updateScorePlayer = async () => {
+    await updateDoc(doc(db, "rankings", idGame, "users", uid), {
+      score: -scorePlayer,
+      date: -Date.now(),
+    });
+    updateDataRanking();
+  }
+
+  const updateDataGame = async () => {
+    //Get subcollection
+    const docRef = doc(db, "rankings", idGame);
+    const colRef = collection(docRef, "users");
+    //Get datas
+    const querySnapshot = await getDocs(colRef);
+    let foundUser = false;
+    querySnapshot.forEach((doc) => {
+      if (doc.id === uid) foundUser = true;
+      const scoreWritten = doc.data().score;
+      const scoreNumberWritten = -parseInt(scoreWritten);
+      if (scorePlayer > scoreNumberWritten) {
+        //UpdateNewScore
+        updateScorePlayer();
+      }
+    });
+    if (!foundUser) {
+      //The score doesn't exist, add data
+      const newData = { score: -scorePlayer, date: -Date.now() };
+      await setDoc(doc(db, "rankings", idGame, "users", uid), newData);
+      updateDataRanking();
+    }
+  };
+
 
   //Update Score Player in Firebase
-  useEffect(
-    function () {
-      const updateScorePlayer = async () => {
-        await updateDoc(doc(db, "rankings", idGame, "users", uid), {
-          score: -scorePlayer,
-          date: -Date.now(),
-        });
-        updateDataRanking();
-      };
-
-      const updateDataGame = async () => {
-        //Get subcollection
-        const docRef = doc(db, "rankings", idGame);
-        const colRef = collection(docRef, "users");
-        //Get datas
-        const querySnapshot = await getDocs(colRef);
-        let foundUser = false;
-        querySnapshot.forEach((doc) => {
-          if (doc.id === uid) foundUser = true;
-          const scoreWritten = doc.data().score;
-          const scoreNumberWritten = -parseInt(scoreWritten);
-          if (scorePlayer > scoreNumberWritten) {
-            //UpdateNewScore
-            updateScorePlayer();
-          }
-        });
-        if (!foundUser) {
-          //The score doesn't exist, add data
-          const newData = { score: -scorePlayer, date: -Date.now() };
-          await setDoc(doc(db, "rankings", idGame, "users", uid), newData);
-          updateDataRanking();
-        }
-      };
+  useEffect(()=>{
       if (scorePlayer != 0) {
         updateDataGame();
       }
     },
-    [scorePlayer]
-  );
+    [scorePlayer]);
 
   //Get all data users
   useState(() => {

@@ -105,7 +105,7 @@ const SignUp = (props) => {
           signupUser(e);
         }}
       >
-        <label>Nombre de usuario: </label>
+        <label>Email: </label>
         <input
           name="email"
           className="form-input"

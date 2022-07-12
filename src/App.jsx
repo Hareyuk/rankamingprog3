@@ -26,6 +26,7 @@ function App() {
   const [loading, setLoadingState] = useState(true);
   const [uid, setUid] = useState(null);
   const [user, setUser] = useState(null);
+  const [updateInfoAccess, setUpdateInfoAccess] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -70,6 +71,8 @@ function App() {
           )}
           <main>
             <ButtonsAccount
+              updateInfoAccess={updateInfoAccess}
+              setUpdateInfoAccess={(state)=>setUpdateInfoAccess(state)}
               setUid={(value) => {
                 handleChangeUid(value);
               }}
@@ -174,6 +177,7 @@ function App() {
                 path="/profile/:id"
                 element={
                   <Profile
+                    setUpdateInfoAccess={(state)=>setUpdateInfoAccess(state)}
                     setLoadingState={(state) => setLoadingState(state)}
                     uid={uid}
                     functionStart={(value) => {

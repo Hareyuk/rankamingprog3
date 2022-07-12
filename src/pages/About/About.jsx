@@ -6,7 +6,7 @@ const About = (props) => {
   useEffect(() => {
     setLoadingState(false);
     functionStart(false);
-  });
+  }, []);
   return (
     <Fragment>
       <GrandientBar text="Acerca de"></GrandientBar>

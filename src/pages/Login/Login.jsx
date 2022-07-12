@@ -51,7 +51,7 @@ const Login = (props) => {
           loginUsuario(e);
         }}
       >
-        <label>Nombre de usuario: </label>
+        <label>Email: </label>
         <input
           className="form-input"
           placeholder="Introduce el mail"

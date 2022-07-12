@@ -4,7 +4,7 @@ import { ButtonAccess } from "../ButtonAccess/ButtonAccess";
 import { auth, db } from "../../firebaseconfig";
 import { doc, getDoc } from "firebase/firestore";
 const ButtonsAccount = (props) => {
-  const { uid, boolShow, setUid } = props;
+  const { uid, boolShow, setUid, updateInfoAccess, setUpdateInfoAccess } = props;
   const navigate = useNavigate();
   const logOut = () => {
     auth.signOut();
@@ -15,16 +15,26 @@ const ButtonsAccount = (props) => {
   const [pfpUrl, setPfpUrl] = useState(null);
   const [nick, setNick] = useState(null);
 
+  const getData = async () => {
+    const docRef = await doc(db, "users", uid);
+    const docSnap = await getDoc(docRef);
+    const { nick, pfpUrl } = await docSnap.data();
+    await setPfpUrl(pfpUrl);
+    await setNick(nick);
+  };
+
   useEffect(() => {
-    const getData = async () => {
-      const docRef = await doc(db, "users", uid);
-      const docSnap = await getDoc(docRef);
-      const { nick, pfpUrl } = await docSnap.data();
-      await setPfpUrl(pfpUrl);
-      await setNick(nick);
-    };
-    if (uid) getData();
+    if (uid) getData(); 
   }, [uid]);
+
+  useEffect(()=>
+  {
+    if(updateInfoAccess)
+    {
+      getData();
+      setUpdateInfoAccess(false);
+    }
+  }, [updateInfoAccess])
 
   let nameClass = "";
   if (boolShow) nameClass = "divButtons";

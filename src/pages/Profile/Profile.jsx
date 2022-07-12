@@ -7,7 +7,7 @@ import { db } from "../../firebaseconfig";
 import CropperCompr from "../../components/CropperComp/CropperComp";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const Profile = (props) => {
-  const { functionStart, uid, setLoadingState } = props;
+  const { functionStart, uid, setLoadingState, setUpdateInfoAccess } = props;
   const [editable, setEditable] = useState(false);
   const { id } = useParams();
   const [nick, setNick] = useState("");
@@ -87,6 +87,7 @@ const Profile = (props) => {
       phrase: phrase,
       pfpUrl: urlPfpToUpload,
     });
+    setUpdateInfoAccess(true);
     setEditable(false);
     setLoadingState(false);
   };
